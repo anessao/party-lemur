@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Party Lemur | Your party, your style</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="./lib/bower_components/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Covered+By+Your+Grace|Montserrat" rel="stylesheet">
+	<!-- <link rel="stylesheet" type="text/css" href="./styles/main.css"> -->
+</head>
+<body ng-app="PartyLemurApp">
+
+
+	<div ng-include="'partials/navbar.html'">
+		
+	</div>
+	<div ng-view>
+		
+	</div>
+	
+
+
+	<!-- //THIRD PARTY JAVASCRIPT FILES -->
+	<script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+	<script type="text/javascript" src="./lib/bower_components/jquery/dist/jquery.js"></script>
+	<script type="text/javascript" src="./lib/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+	<script type="text/javascript" src="./lib/bower_components/angular/angular.min.js"></script>
+	<script type="text/javascript" src="./lib/bower_components/angular-route/angular-route.min.js"></script>
+	<script type="text/javascript" src="./lib/bower_components/angular-animate/angular-animate.min.js"></script>
+	<script type="text/javascript" src="./lib/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+
+	<!-- //PERSONAL JAVASCRIPT FILES -->
+	<script type="text/javascript" src="./javascripts/app.js"></script>
+	<script type="text/javascript" src="./javascripts/AppConfig.js"></script>
+	<script type="text/javascript" src="./javascripts/AppConstants.js"></script>
+	<script type="text/javascript" src="/javascripts/factories/AuthFactory.js"></script>
+	<script type="text/javascript" src="/javascripts/factories/UserFactory.js"></script>
+
+
+	<script type="text/javascript" src="./javascripts/controllers/AuthCtrl.js"></script>
+	<script type="text/javascript" src="./javascripts/controllers/LandingCtrl.js"></script>
+	<script type="text/javascript" src="./javascripts/controllers/NavCtrl.js"></script>
+
+
+</body>
+</html>
