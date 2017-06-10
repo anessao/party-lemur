@@ -39,6 +39,10 @@ app.config(function($routeProvider) {
       templateUrl: 'partials/profile.html',
       controller: 'ProfileCtrl'
     })
+    .when('/image/new', {
+      templateUrl: 'partials/imageAdd.html',
+      controller: 'ImageAddCtrl'
+    })
     .when('/auth', {
       templateUrl: 'partials/auth.html',
       controller: 'AuthCtrl'

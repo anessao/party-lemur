@@ -1,1 +1,1 @@
-var app = angular.module("PartyLemurApp", ["ngAnimate", "ngRoute", "ngSanitize"]);
+var app = angular.module("PartyLemurApp", ["ngAnimate", "ngRoute", "ngSanitize", "naif.base64"]);

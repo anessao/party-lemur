@@ -8,15 +8,15 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
         <ul class="nav navbar-nav navbar-right" ng-if="user.uid">
               <li>
-                  <a href="#!/profile">my Profile</a>
+                  <a ng-href="#!/profile">my Profile</a>
               </li>
               <li>
-                  <a href="#!/logout">Logout</a>
+                  <a ng-href="#!/logout">Logout</a>
               </li>
         </ul>
         <ul class="nav navbar-nav navbar-right" ng-if="!user.uid">
             <li>
-                <a href="#!/auth">Login/Register</a>
+                <a ng-href="#!/auth">Login/Register</a>
             </li>
         </ul>
   </div><!-- /.container-fluid -->
