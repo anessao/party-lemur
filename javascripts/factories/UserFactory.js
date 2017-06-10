@@ -35,28 +35,6 @@ app.factory("UserFactory", function($q, $http, FIREBASE_CONFIG) {
         });
     });
   };
-  let editEmail = (newEmail) => {
-    var user = firebase.auth().currentUser;
-      user.updateEmail(newEmail).then(function() {
-    }, function(error) {
-        // An error happened.
-    });
-  };
 
-  let editUser = (id, updatedInfo) => {
-    return $q((resolve, reject) => {
-      $http.put(`${FIREBASE_CONFIG.databaseURL}/users/${id.id}.json`, JSON.stringify({
-            name: updatedInfo.name,
-            uid: id.uid,
-            id: id.id
-      }))
-      .then((resultz) => {
-        resolve(resultz);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-    });
-  };
-  return {addUser:addUser, getUser:getUser, editUser:editUser, editEmail:editEmail};
+  return {addUser:addUser, getUser:getUser};
 });

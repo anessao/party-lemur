@@ -1,0 +1,44 @@
+{
+  "users": {
+    "user0": {
+      "uid": "hdfb0igSGIRGEmwxI24py2xt7EM2",
+      "username": "Daryn",
+      "name": "Daryn"
+    },
+    "user1": {
+      "uid": "6X5dExpfvtVPROf8Z5DXy6vXsYh1",
+      "username": "Anessa",
+      "name": "Anessa"
+    }
+  },
+  "types": {
+    "type0": "pattern",
+    "type1": "artwork",
+    "type3": "photograph"
+  },
+  "images": {
+    "image0": {
+      "uid": "6X5dExpfvtVPROf8Z5DXy6vXsYh1",
+      "typeid": "type0",
+      "title": "title of art",
+      "base64string": "base64string"
+    }
+  },
+  "invites": {
+    "invite0": {
+      "eventId": "event0",
+      "base64string": "base64string",
+      "editObject": {
+        "layer0": "test layer"
+      }
+    }
+  },
+  "events": {
+    "event0": {
+      "uid": "6X5dExpfvtVPROf8Z5DXy6vXsYh1",
+      "title": "title",
+      "description": "description",
+      "date": "date"
+    }
+  }
+}
