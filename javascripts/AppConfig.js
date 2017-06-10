@@ -38,6 +38,10 @@ app.config(function($routeProvider) {
       templateUrl: 'partials/landing.html',
       controller: 'LandingCtrl'
     })
+    .when('/profile', {
+      templateUrl: 'partials/profile.html',
+      controller: 'ProfileCtrl'
+    })
     .when('/auth', {
       templateUrl: 'partials/auth.html',
       controller: 'AuthCtrl'

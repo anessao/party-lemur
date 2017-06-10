@@ -1,5 +1,4 @@
 app.controller("AuthCtrl", function($location, $rootScope, $routeParams, $scope, AuthFactory, UserFactory) {
-	console.log("auth controller working");
 
 	$scope.alerts = [];
   $scope.auth = {
@@ -20,7 +19,7 @@ app.controller("AuthCtrl", function($location, $rootScope, $routeParams, $scope,
       $scope.alerts.push({msg: error.message});
     }).then((user) => {
       $rootScope.user = user;
-      $location.url('/pins/list');
+      $location.url('/partylemur');
     }).catch();
   };
   
@@ -40,8 +39,6 @@ app.controller("AuthCtrl", function($location, $rootScope, $routeParams, $scope,
   $scope.loginUser = () => {
     logMeIn();
   };
-
-
 
 
 });
