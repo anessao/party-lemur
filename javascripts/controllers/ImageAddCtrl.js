@@ -1,5 +1,5 @@
 app.controller("ImageAddCtrl", function($window, $location, $rootScope, $scope, $timeout, ImageFactory) {
-
+	$scope.finished = false;
   $scope.testSave = () => {
   	let newFile = {
   		uid : $rootScope.user.uid,
@@ -9,6 +9,7 @@ app.controller("ImageAddCtrl", function($window, $location, $rootScope, $scope, 
   	ImageFactory.postNewImage(newFile).then(() => {
   		newFile = {};
   		$scope.file = {};
+  		$scope.finished = true;
   	}).catch((error) => {
   		console.log(error);
   	});
@@ -24,8 +25,5 @@ app.controller("ImageAddCtrl", function($window, $location, $rootScope, $scope, 
 
   };
 
-  var uploadedCount = 0;
-
-  $scope.files = [];
 
 });

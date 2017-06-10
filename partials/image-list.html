@@ -1,0 +1,10 @@
+<h1>working images list</h1>
+
+<div class="container" ng-repeat="image in images">
+	<div class="thumbnail col-xs-4">
+		<img src="data:{{image.filetype}};base64,{{image.base64code}}">
+	</div>
+</div>
+<div>
+	<button class="btn btn-info" ng-click="goToAddNew()">Upload New Image</button>
+</div>
