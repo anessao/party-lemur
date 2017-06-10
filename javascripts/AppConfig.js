@@ -17,9 +17,6 @@ app.run(function($location, $rootScope, FIREBASE_CONFIG, AuthFactory) {
 
     // to keep error from being thrown on page refresh
     if (currRoute.originalPath) {
-      // check if the user is going to the auth page = currRoute.originalPath
-      // if user is on auth page then appTo is true
-      // if it finds something other than /auth it return a -1 and -1!==-1 so resolves to false
       appTo = currRoute.originalPath.indexOf('/auth') !== -1;
     }
 
