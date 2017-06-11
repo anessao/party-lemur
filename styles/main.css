@@ -1,0 +1,10 @@
+canvas {
+  border: 1px solid black; }
+
+.uploadView {
+  max-height: 200px;
+  max-width: 200px; }
+
+.uploadPreview {
+  max-height: 500px;
+  max-width: 500px; }

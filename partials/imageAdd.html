@@ -1,0 +1,22 @@
+
+<div class="container">
+	<h3>Single File Selection</h3>
+	<div class="input-group">
+		<label for="file">Select File</label>
+		<input type="file" ng-model="file" name="file" base-sixty-four-input onload="onLoad" accept="image/*">
+	</div>
+	<div class="thumbnail col-xs-12">
+		<img class="uploadPreview" src="data:{{file.filetype}};base64,{{file.base64}}">
+		<div class="caption">
+			<input type="radio" ng-model="imageCategory" value="pattern" ng-change="allowSave()">Pattern
+			<input type="radio" ng-model="imageCategory" value="photograph" ng-change="allowSave()">Photo
+			<input type="radio" ng-model="imageCategory" value="art" ng-change="allowSave()">Art
+		</div>
+	</div>
+	<div class="container" ng-show="readyToSave">
+		<button class="btn btn-warning" ng-click="itemSave()" ng-disabled="!file.base64">save</button>
+	</div>
+	<div ng-show="finished">
+		<p><a ng-href="#!/images/list">Click here </a>when finished to view all of your uploads!</p>
+	</div>
+</div>

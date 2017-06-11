@@ -37,7 +37,23 @@ app.config(function($routeProvider) {
     })
     .when('/profile', {
       templateUrl: 'partials/profile.html',
-      controller: 'ProfileCtrl'
+      controller: 'ProfileCtrl',
+      resolve: {isAuth}
+    })
+    .when('/image/new', {
+      templateUrl: 'partials/imageAdd.html',
+      controller: 'ImageAddCtrl',
+      resolve : {isAuth}
+    })
+    .when('/images/list', {
+      templateUrl: 'partials/image-list.html',
+      controller: 'ImagesListCtrl',
+      resolve : {isAuth}
+    })
+    .when('/image/edit/:imageid', {
+      templateUrl: 'partials/imageAdd.html',
+      controller: 'ImageEditCtrl',
+      resolve: {isAuth}
     })
     .when('/auth', {
       templateUrl: 'partials/auth.html',

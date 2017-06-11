@@ -1,0 +1,39 @@
+<div class="container">
+
+	<div class="row">	
+		<h4>Artworks</h4>
+		<div class="thumbnail col-xs-4" ng-repeat="image in images | filter:{category:'art'}">
+			<img class="uploadView" src="data:{{image.filetype}};base64,{{image.base64code}}">
+			<div class="caption">
+				<button class="btn btn-danger fa fa-trash-o" ng-click="deleteUpload(image.id)"></button>
+				<button class="btn btn-info fa fa-pencil-square-o" ng-click="editUpload(image.id)"></button>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">	
+		<h4>Patterns</h4>
+		<div class="thumbnail col-xs-4" ng-repeat="image in images | filter:{category:'pattern'}">
+			<img class="uploadView" src="data:{{image.filetype}};base64,{{image.base64code}}">
+			<div class="caption">
+				<button class="btn btn-danger fa fa-trash-o" ng-click="deleteUpload(image.id)"></button>
+				<button class="btn btn-info fa fa-pencil-square-o" ng-click="editUpload(image.id)"></button>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">	
+		<h4>Photographs</h4>
+		<div class="thumbnail col-xs-4" ng-repeat="image in images | filter:{category:'photograph'}">
+			<img class="uploadView" src="data:{{image.filetype}};base64,{{image.base64code}}">
+			<div class="caption">
+				<button class="btn btn-danger fa fa-trash-o" ng-click="deleteUpload(image.id)"></button>
+				<button class="btn btn-info fa fa-pencil-square-o" ng-click="editUpload(image.id)"></button>
+			</div>
+		</div>
+	</div>
+
+<div class="row">
+	<button class="btn btn-info" ng-click="goToAddNew()">Upload New Image</button>
+</div>
+</div>
