@@ -1,2 +1,6 @@
 canvas {
   border: 1px solid black; }
+
+.uploadView {
+  max-height: 200px;
+  max-width: 200px; }

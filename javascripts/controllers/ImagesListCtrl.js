@@ -3,7 +3,7 @@ app.controller("ImagesListCtrl", function($location, $rootScope, $routeParams, $
 	$scope.goToAddNew = () => {
 		$location.url("/image/new");
 	};
-	
+
 	$scope.images = [];
 	
 	let getItems = () => {
@@ -17,5 +17,16 @@ app.controller("ImagesListCtrl", function($location, $rootScope, $routeParams, $
 	};
 
 	getItems();
+
+	$scope.deleteUpload = (id) => {
+		ImageFactory.fbDelete(id).then(() => {
+			getItems();
+		}).catch((error) => {
+			console.log("error in image upload delete", error);
+		});
+	};
+	$scope.editUpload = (id) => {
+		$location.url(`/image/edit/${id}`);
+	};
 
 });

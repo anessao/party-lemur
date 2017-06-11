@@ -10,8 +10,8 @@ app.factory("ImageFactory", function($q, $http, FIREBASE_CONFIG){
 			});
 		});
 	};
+
 	let getImageList = (userId) => {
-		console.log("user id", userId);
     let imagez = [];
     return $q((resolve, reject) => {
       $http.get(`${FIREBASE_CONFIG.databaseURL}/images.json?orderBy="uid"&equalTo="${userId}"`)
@@ -32,5 +32,44 @@ app.factory("ImageFactory", function($q, $http, FIREBASE_CONFIG){
     });
   };
 
-  return {postNewImage:postNewImage, getImageList:getImageList};
+  let fbDelete = (itemId) => {
+  	return $q((resolve, reject) => {
+    $http.delete(`${FIREBASE_CONFIG.databaseURL}/images/${itemId}.json`)
+	    .then((results) => {
+	      resolve(results);
+	    })
+	    .catch((error) => {
+	      reject(error);
+	    });
+    });
+  };
+
+  let getSelectedImage = (id) => {
+    return $q((resolve, reject) => {
+      $http.get(`${FIREBASE_CONFIG.databaseURL}/images/${id}.json`)
+      .then((resultz) => {
+        resultz.data.id = id;
+        resolve(resultz);
+      }).catch((error) => {
+        reject(error);
+      });
+    });
+  };
+
+  let editUpload = (editImageObj) => {
+    return $q((resolve, reject) => {
+      $http.put(`${FIREBASE_CONFIG.databaseURL}/images/${editImageObj.id}.json`, JSON.stringify({
+        base64code: editImageObj.base64code,
+        category: editImageObj.category,
+        filetype: editImageObj.filetype,
+        uid: editImageObj.uid
+      })).then((results) => {
+        resolve(results);
+      }).catch((error) => {
+        reject(error);
+      });
+    });
+  };
+
+  return {postNewImage:postNewImage, getImageList:getImageList, fbDelete:fbDelete, getSelectedImage:getSelectedImage, editUpload:editUpload};
 });

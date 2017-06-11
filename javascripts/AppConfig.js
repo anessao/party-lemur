@@ -50,6 +50,11 @@ app.config(function($routeProvider) {
       controller: 'ImagesListCtrl',
       resolve : {isAuth}
     })
+    .when('/image/edit/:imageid', {
+      templateUrl: 'partials/imageAdd.html',
+      controller: 'ImageEditCtrl',
+      resolve: {isAuth}
+    })
     .when('/auth', {
       templateUrl: 'partials/auth.html',
       controller: 'AuthCtrl'
