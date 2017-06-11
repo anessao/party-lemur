@@ -1,0 +1,47 @@
+<h1>working builder app</h1>
+<div class="container">
+	<div class="col-xs-6">
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Layer Control</h3>
+		  </div>
+		  <div class="panel-body">
+		    <!-- <div class="row" ng-repeat="layer in layers">
+
+		    	
+		    </div> -->
+		    <h4>Create an Event:</h4><br>
+		    	<div class="input-group col-xs-12">
+					  <span class="input-group-addon" id="basic-addon1">Event Title</span>
+					  <input type="text" class="form-control" placeholder="Elizabeth's 30th birthday..." aria-describedby="basic-addon1" ng-model="event.title">
+					</div><br>
+					<div class="input-group col-xs-12">
+					  <span class="input-group-addon" id="basic-addon1">Location</span>
+					  <input type="text" class="form-control" placeholder="M.L.Rose Craft Beer & Burgers in Nashville" aria-describedby="basic-addon1" ng-model="event.description">
+					</div><br>
+					<div class="input-group col-xs-12">
+					  <span class="input-group-addon" id="basic-addon1">Event Date</span>
+					  <input type="text" class="form-control" placeholder="March 30th" aria-describedby="basic-addon1" ng-model="event.date">
+					</div><br>
+					<h4>Set your background image:</h4><br>
+		    <div ng-repeat="image in images">
+		    	<div class="thumbnail col-xs-2">
+		    		<button class="btn" ng-click="setMyImage(image)">
+		    			<img class="builderThumbnails" src="data:{{image.filetype}};base64,{{image.base64code}}">
+		    		</button>
+		    	</div>
+		    </div>
+		    <br>
+		    	<input type="text" class="form-control" ng-model="textlayers.line1" ng-change="updateCanvas()"><br>
+	    		<input type="text" class="form-control" ng-model="textlayers.line2" ng-change="updateCanvas()"><br>
+	    		<input type="text" class="form-control" ng-model="textlayers.line3" ng-change="updateCanvas()"><br>
+	    		<input type="text" class="form-control" ng-model="textlayers.line4" ng-change="updateCanvas()">
+		  </div>
+		</div>
+		
+	</div>
+	<div class="container">
+		<canvas id="inviteBuilder" width="360px" height="504px">Oops! Your Browser doesn't support me! [ You can always try chrome ;) ]</canvas><br>
+		<button class="btn btn-success" ng-click="saveEvent()"></button>
+	</div>
+</div>

@@ -55,6 +55,11 @@ app.config(function($routeProvider) {
       controller: 'ImageEditCtrl',
       resolve: {isAuth}
     })
+    .when('/invitebuilder', {
+      templateUrl: 'partials/invitebuilder.html',
+      controller: 'BuilderCtrl',
+      resolve: {isAuth}
+    })
     .when('/auth', {
       templateUrl: 'partials/auth.html',
       controller: 'AuthCtrl'

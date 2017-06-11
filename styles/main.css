@@ -8,3 +8,7 @@ canvas {
 .uploadPreview {
   max-height: 500px;
   max-width: 500px; }
+
+.builderThumbnails {
+  max-width: 20px;
+  max-height: 20px; }
