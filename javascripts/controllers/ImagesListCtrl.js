@@ -2,7 +2,8 @@ app.controller("ImagesListCtrl", function($location, $rootScope, $routeParams, $
 	
 	$scope.goToAddNew = () => {
 		$location.url("/image/new");
-	}
+	};
+	
 	$scope.images = [];
 	
 	let getItems = () => {

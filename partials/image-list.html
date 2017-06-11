@@ -1,7 +1,5 @@
-<h1>working images list</h1>
-
-<div class="container" ng-repeat="image in images">
-	<div class="thumbnail col-xs-4">
+<div class="container">
+	<div class="thumbnail col-xs-4" ng-repeat="image in images">
 		<img src="data:{{image.filetype}};base64,{{image.base64code}}">
 	</div>
 </div>

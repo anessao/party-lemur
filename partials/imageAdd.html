@@ -5,10 +5,15 @@
 		<label for="file">Select File</label>
 		<input type="file" ng-model="file" name="file" base-sixty-four-input onload="onLoad" accept="image/*">
 	</div>
-	<div class="thumbnail col-xs-3">
+	<div class="thumbnail col-xs-12">
 		<img src="data:{{file.filetype}};base64,{{file.base64}}">
+		<div class="caption">
+			<input type="radio" ng-model="imageCategory" value="pattern" ng-change="allowSave()">Pattern
+			<input type="radio" ng-model="imageCategory" value="photograph" ng-change="allowSave()">Photo
+			<input type="radio" ng-model="imageCategory" value="art" ng-change="allowSave()">Art
+		</div>
 	</div>
-	<div>
+	<div class="container" ng-show="readyToSave">
 		<button class="btn btn-warning" ng-click="testSave()" ng-disabled="!file.base64">save</button>
 	</div>
 	<div ng-show="finished">
