@@ -7,10 +7,8 @@ app.controller("ImagesListCtrl", function($location, $rootScope, $routeParams, $
 	$scope.images = [];
 	
 	let getItems = () => {
-
 	  ImageFactory.getImageList($rootScope.user.uid).then((imagesObjs) => {
 	    $scope.images = imagesObjs;
-
 	  }).catch((error) => {
 	    console.log("get error", error);
 	  });
@@ -25,6 +23,7 @@ app.controller("ImagesListCtrl", function($location, $rootScope, $routeParams, $
 			console.log("error in image upload delete", error);
 		});
 	};
+	
 	$scope.editUpload = (id) => {
 		$location.url(`/image/edit/${id}`);
 	};

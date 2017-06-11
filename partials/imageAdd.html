@@ -6,7 +6,7 @@
 		<input type="file" ng-model="file" name="file" base-sixty-four-input onload="onLoad" accept="image/*">
 	</div>
 	<div class="thumbnail col-xs-12">
-		<img src="data:{{file.filetype}};base64,{{file.base64}}">
+		<img class="uploadPreview" src="data:{{file.filetype}};base64,{{file.base64}}">
 		<div class="caption">
 			<input type="radio" ng-model="imageCategory" value="pattern" ng-change="allowSave()">Pattern
 			<input type="radio" ng-model="imageCategory" value="photograph" ng-change="allowSave()">Photo

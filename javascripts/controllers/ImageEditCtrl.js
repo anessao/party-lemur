@@ -19,7 +19,7 @@ app.controller("ImageEditCtrl", function($window, $location, $routeParams, $root
   		base64code : $scope.file.base64,
   		filetype : $scope.file.filetype,
   		category : $scope.imageCategory,
-      id : $routeParams.imageid,
+      id : $routeParams.imageid
   	};
   	ImageFactory.editUpload(newFile).then(() => {
   		newFile = {};
