@@ -23,7 +23,6 @@ app.factory("ImageFactory", function($q, $http, FIREBASE_CONFIG){
                 imagez.push(itemCollection[key]);
             });
           }
-          	console.log(imagez);
             resolve(imagez);
         })
         .catch((error) => {
