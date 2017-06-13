@@ -20,14 +20,24 @@
 			    <button class="btn btn-success" ng-click="saveEvent()">Save Event</button>
 		    </div>
 		    <div ng-show="showLayerOptions">
-		    	<h4>Set your background image:</h4><br>
+		    	<h4>Create Your Background Layer:</h4><br>
 				    <div ng-repeat="image in images">
 				    	<div class="thumbnail col-xs-2">
-				    		<button class="btn" ng-click="setMyImage(image)">
+				    		<button class="btn" ng-click="setLayer(image)">
 				    			<img class="builderThumbnails" src="data:{{image.filetype}};base64,{{image.base64code}}">
 				    		</button>
 				    	</div>
 				    </div>
+		    </div><br>
+		    <div class="col-xs-12" ng-repeat="layer in currentLayers">
+		    	<h5>Layer {{layer.layernumber}}</h5>
+		    	<button class="btn btn-success" ng-click="shiftLayerRight(layer.layernumber)">Right</button>
+		    	<button class="btn btn-success" ng-click="shiftLayerLeft(layer.layernumber)">Left</button>
+		    	<button class="btn btn-success" ng-click="shiftLayerUp(layer.layernumber)">Up</button>
+		    	<button class="btn btn-success" ng-click="shiftLayerDown(layer.layernumber)">Down</button>
+		    	<button class="btn btn-success" ng-click="scaleLayerUp(layer.layernumber)">Scale + </button>
+		    	<button class="btn btn-success" ng-click="scaleLayerDown(layer.layernumber)">Scale - </button>
+		    	<button class="btn btn-warning" ng-click="deleteLayer(layer.layernumber)">Delete</button>
 		    </div>
 		</div>
 	</div>

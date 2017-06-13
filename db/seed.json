@@ -11,15 +11,9 @@
       "name": "Anessa"
     }
   },
-  "types": {
-    "type0": "pattern",
-    "type1": "artwork",
-    "type2": "photograph"
-  },
   "images": {
     "image0": {
       "uid": "6X5dExpfvtVPROf8Z5DXy6vXsYh1",
-      "typeid": "type0",
       "title": "title of art",
       "base64string": "base64string"
     }
@@ -27,9 +21,30 @@
   "invites": {
     "invite0": {
       "eventId": "event0",
-      "base64string": "base64string",
-      "editObject": {
-        "layer0": "test layer"
+      "base64string": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWgAAAH4CAYAAABng3eWAAAQtklEQ…QMtB8gQIBAVMBAR4sRiwABAgbaDxAgQCAqYKCjxYhFgACBB+grAflA3sdZAAAAAElFTkSuQmCC",
+      "layers": {
+        "layer-0": {
+          "imageCode": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAIAAAACDbGyAAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oMCRUiMrIBQVkAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAADElEQVQI12NgoC4AAABQAAEiE+h1AAAAAElFTkSuQmCC",
+          "x": 30,
+          "y": 20,
+          "z": 0.5,
+          "id": "layer0"
+        },
+        "layer-1": {
+          "imageCode": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAIAAAACDbGyAAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oMCRUiMrIBQVkAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAADElEQVQI12NgoC4AAABQAAEiE+h1AAAAAElFTkSuQmCC",
+          "x": 100,
+          "y": 20,
+          "z": 3,
+          "id": "layer1"
+
+        },
+        "layer-2": {
+          "imageCode": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAIAAAACDbGyAAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oMCRUiMrIBQVkAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAADElEQVQI12NgoC4AAABQAAEiE+h1AAAAAElFTkSuQmCC",
+          "x": 30,
+          "y": 100,
+          "z": 10,
+          "id": "layer2"
+        }
       }
     }
   },
