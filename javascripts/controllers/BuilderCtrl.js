@@ -1,13 +1,14 @@
-app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $scope, ImageFactory, InviteFactory, EventFactory) {
+app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $scope, $timeout, ImageFactory, InviteFactory, EventFactory) {
 	
 	let canvas = document.getElementById("inviteBuilder");
 	let ctx = canvas.getContext('2d');
 
 	$scope.images = [];
+	$scope.textInput = "";
 	$scope.newEvent = {};
 	$scope.currentLayers = [];
-	$scope.showLayerOptions = false;
-	let thisEvent = "";
+	$scope.showLayerOptions = true;//SET TO FALSE WHEN READY TO IMPLEMENT IF KEEPING THIS PROCESS
+	// let thisEvent = "";
 
 	let layerSelectedImage = "";
 	
@@ -19,6 +20,8 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 	    console.log("get error", error);
 	  });
 	};
+
+	getItems(); //REMOVE THIS LINE IF IMPLEMENTING THE SET EVENT FUNCTIONALITY FIRST
 //**************************
 // IMAGE BUILDER V2
 //**************************
@@ -26,18 +29,29 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 	let yAxis = 10;
 	let zScale = 0.5;
 	let layerCounter = 0;
+	let fontSize = 50;
+	let fontType = "Futura";
 
 	let myDrawImage = (obj) => {
-	  let longstring = obj.imageCode;
-	  let xAxis = obj.xAxis;
-	  let yAxis = obj.yAxis;
-	  let zScale = obj.scale;
-	  
-	  let img = new Image();
-	  img.onload = () => {
-	    ctx.drawImage(img, xAxis, yAxis, img.width * zScale, img.height * zScale);
-	  };
-	  img.src = longstring;
+	  	let longstring = obj.imageCode;
+		  let xAxis = obj.xAxis;
+		  let yAxis = obj.yAxis;
+		  let zScale = obj.scale;
+		  	
+	  	let img = new Image();
+	  	img.onload = () => {
+	    	ctx.drawImage(img, xAxis, yAxis, img.width * zScale, img.height * zScale);
+	    	console.log(obj);
+	    	if (obj.string !== undefined) {
+	    		writeMyText(obj);
+	    	}
+	  	};
+	  	img.src = longstring;
+	};
+
+	let writeMyText = (textObj) => {
+		  ctx.font = `${textObj.size}px ${textObj.fontType}`;
+			ctx.fillText(textObj.string, textObj.xAxis, textObj.yAxis);
 	};
 
 	$scope.setLayer = (imageObj) => {
@@ -50,11 +64,35 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 		};
 		$scope.currentLayers.push(newLayer);
 		layerCounter ++;
-
 		$scope.currentLayers.forEach((layerObj) => {
-  		myDrawImage(layerObj);
+			if (layerObj.string !== undefined) {
+				$timeout(() => {writeMyText(layerObj);}, 200);
+			} else {
+  			myDrawImage(layerObj);
+			}
 		});
 	};
+
+	$scope.createTextLayer = (textString) => {
+		let newLayer = {
+			string: textString,
+			xAxis: 100,
+			yAxis: 100,
+			size: fontSize,
+			fontType: fontType,
+			layernumber: layerCounter
+		};
+		$scope.currentLayers.push(newLayer);
+		layerCounter ++;
+		$scope.currentLayers.forEach((layerObj) => {
+			if (layerObj.string !== undefined) {
+				$timeout(() => {writeMyText(layerObj);}, 200);
+			} else {
+  			myDrawImage(layerObj);
+			}
+		});
+	};
+
 	//******************************
 	//LAYER MANIPULATIONS
 
@@ -62,23 +100,31 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 	$scope.shiftLayerRight = (layerNum) => {
 		for (let a = 0; a < $scope.currentLayers.length; a++){
 			if (layerNum === $scope.currentLayers[a].layernumber) {
-				$scope.currentLayers[a].xAxis = $scope.currentLayers[a].xAxis + 5;
+				$scope.currentLayers[a].xAxis = $scope.currentLayers[a].xAxis + 10;
 			}
 		}
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		$scope.currentLayers.forEach((layerObj) => {
-  		myDrawImage(layerObj);
+			if (layerObj.string !== undefined) {
+				$timeout(() => {writeMyText(layerObj);}, 200);
+			} else {
+  			myDrawImage(layerObj);
+			}
 		});
 	};
 	$scope.shiftLayerLeft = (layerNum) => {
 		for (let a = 0; a < $scope.currentLayers.length; a++){
 			if (layerNum === $scope.currentLayers[a].layernumber) {
-				$scope.currentLayers[a].xAxis = $scope.currentLayers[a].xAxis - 5;
+				$scope.currentLayers[a].xAxis = $scope.currentLayers[a].xAxis - 10;
 			}
 		}
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		$scope.currentLayers.forEach((layerObj) => {
-  		myDrawImage(layerObj);
+			if (layerObj.string !== undefined) {
+				$timeout(() => {writeMyText(layerObj);}, 200);
+			} else {
+  			myDrawImage(layerObj);
+			}
 		});
 	};
 
@@ -86,23 +132,31 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 		$scope.shiftLayerUp = (layerNum) => {
 		for (let a = 0; a < $scope.currentLayers.length; a++){
 			if (layerNum === $scope.currentLayers[a].layernumber) {
-				$scope.currentLayers[a].yAxis = $scope.currentLayers[a].yAxis + 5;
+				$scope.currentLayers[a].yAxis = $scope.currentLayers[a].yAxis - 10;
 			}
 		}
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		$scope.currentLayers.forEach((layerObj) => {
-  		myDrawImage(layerObj);
+			if (layerObj.string !== undefined) {
+				$timeout(() => {writeMyText(layerObj);}, 200);
+			} else {
+  			myDrawImage(layerObj);
+			}
 		});
 	};
 	$scope.shiftLayerDown = (layerNum) => {
 		for (let a = 0; a < $scope.currentLayers.length; a++){
 			if (layerNum === $scope.currentLayers[a].layernumber) {
-				$scope.currentLayers[a].yAxis = $scope.currentLayers[a].yAxis - 5;
+				$scope.currentLayers[a].yAxis = $scope.currentLayers[a].yAxis + 10;
 			}
 		}
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		$scope.currentLayers.forEach((layerObj) => {
-  		myDrawImage(layerObj);
+			if (layerObj.string !== undefined) {
+				$timeout(() => {writeMyText(layerObj);}, 200);
+			} else {
+  			myDrawImage(layerObj);
+			}
 		});
 	};
 
@@ -115,7 +169,11 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 		}
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		$scope.currentLayers.forEach((layerObj) => {
-  		myDrawImage(layerObj);
+			if (layerObj.string !== undefined) {
+				$timeout(() => {writeMyText(layerObj);}, 200);
+			} else {
+  			myDrawImage(layerObj);
+			}
 		});
 	};
 		$scope.scaleLayerDown = (layerNum) => {
@@ -126,7 +184,11 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 		}
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		$scope.currentLayers.forEach((layerObj) => {
-  		myDrawImage(layerObj);
+			if (layerObj.string !== undefined) {
+				$timeout(() => {writeMyText(layerObj);}, 30);
+			} else {
+  			myDrawImage(layerObj);
+			}
 		});
 	};
 
@@ -139,7 +201,11 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 		}
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		$scope.currentLayers.forEach((layerObj) => {
-  		myDrawImage(layerObj);
+			if (layerObj.string !== undefined) {
+				$timeout(() => {writeMyText(layerObj);}, 30);
+			} else {
+  			myDrawImage(layerObj);
+			}
 		});
 	};
 
@@ -147,15 +213,15 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 	// SET EVENT
 	//**************************
 
-  $scope.saveEvent = () => {
-  	$scope.newEvent.uid = $rootScope.user.uid;
-  	EventFactory.postNewEvent($scope.newEvent).then((answer) => {
-  		$scope.showLayerOptions = true;
-  		getItems();
-  	}).catch((error) => {
-  		console.log(error);
-  	});
-  };
+  // $scope.saveEvent = () => {
+  // 	$scope.newEvent.uid = $rootScope.user.uid;
+  // 	EventFactory.postNewEvent($scope.newEvent).then((answer) => {
+  // 		$scope.showLayerOptions = true;
+  // 		getItems();
+  // 	}).catch((error) => {
+  // 		console.log(error);
+  // 	});
+  // };
 
 	// //**************************
 	// // IMAGE BUILDER

@@ -1,3 +1,7 @@
+@font-face {
+  font-family: 'Indie Flower';
+  src: url("https://fonts.googleapis.com/css?family=Indie+Flower"); }
+
 canvas {
   border: 1px solid black; }
 
@@ -10,5 +14,14 @@ canvas {
   max-width: 500px; }
 
 .builderThumbnails {
-  max-width: 20px;
-  max-height: 20px; }
+  display: block;
+  width: 80px; }
+
+.imageBuilderBtn {
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 0px;
+  border: 1px solid gray;
+  padding: 0px;
+  background-color: white; }

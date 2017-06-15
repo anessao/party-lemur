@@ -20,14 +20,16 @@
 			    <button class="btn btn-success" ng-click="saveEvent()">Save Event</button>
 		    </div>
 		    <div ng-show="showLayerOptions">
-		    	<h4>Create Your Background Layer:</h4><br>
+		    	<h4>Create Your Layer:</h4><br>
 				    <div ng-repeat="image in images">
-				    	<div class="thumbnail col-xs-2">
-				    		<button class="btn" ng-click="setLayer(image)">
+				    	<div class="col-xs-2">
+				    		<button class="btn imageBuilderBtn" ng-click="setLayer(image)">
 				    			<img class="builderThumbnails" src="data:{{image.filetype}};base64,{{image.base64code}}">
 				    		</button>
 				    	</div>
 				    </div>
+				    <input type="text" class="form-control" ng-model="textInput">
+				    <button class="btn btn-info" ng-click="createTextLayer(textInput)">Submit Text</button>
 		    </div><br>
 		    <div class="col-xs-12" ng-repeat="layer in currentLayers">
 		    	<h5>Layer {{layer.layernumber}}</h5>
