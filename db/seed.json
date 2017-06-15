@@ -55,5 +55,10 @@
       "description": "description",
       "date": "date"
     }
+  },
+  "layers": {
+    "layer0": {
+      "uid": "6X5dExpfvtVPROf8Z5DXy6vXsYh1"
+    }
   }
 }
