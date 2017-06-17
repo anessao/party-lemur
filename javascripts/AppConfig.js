@@ -65,6 +65,11 @@ app.config(function($routeProvider) {
       controller: 'BuilderEditorCtrl',
       resolve: {isAuth}
     })
+    .when('/invite/list', {
+      templateUrl: 'partials/invite-list.html',
+      controller: 'InviteListCtrl',
+      resolve: {isAuth}
+    })
     .when('/myparties', {
       templateUrl: 'partials/party-list.html',
       controller: 'PartyListCtrl',

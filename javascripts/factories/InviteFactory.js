@@ -41,6 +41,26 @@ app.factory("InviteFactory", function($q, $http, $rootScope, FIREBASE_CONFIG) {
 	        });
 	    });
 	};
+	let getUserInvites = (userid) => {
+		let invites = [];
+	    return $q((resolve, reject) => {
+	      $http.get(`${FIREBASE_CONFIG.databaseURL}/invites.json?orderBy="uid"&equalTo="${userid}"`)
+	        .then((fbItems) => {
+	            var itemCollection = fbItems.data;
+	            if(itemCollection.length !== null) {
+	            Object.keys(itemCollection).forEach((key) => {
+	                itemCollection[key].id = key;
+	                invites.push(itemCollection[key]);
+	            });
+	          }
+	            resolve(invites);
+	        })
+	        .catch((error) => {
+	            reject(error);
+	        });
+	    });
+	};
+
 	let getInvite = (inviteid) => {
 		return $q((resolve, reject) => {
       $http.get(`${FIREBASE_CONFIG.databaseURL}/invites/${inviteid}.json`)
@@ -109,7 +129,46 @@ app.factory("InviteFactory", function($q, $http, $rootScope, FIREBASE_CONFIG) {
 	            reject(error);
 	        });
 	    });
-
 	};
-	return {addInvite:addInvite, createlayerObj:createlayerObj, getEventInvites:getEventInvites, editEventsDesigns:editEventsDesigns, getInviteLayers:getInviteLayers, getInvite:getInvite, editInvite:editInvite, editlayerObj:editlayerObj};
+	let deleteLayers = (layerid) => {
+		console.log("layer id", layerid)
+		return $q((resolve, reject) => {
+	    $http.delete(`${FIREBASE_CONFIG.databaseURL}/layers/${layerid}.json`)
+		    .then((results) => {
+		      resolve(results);
+		    })
+		    .catch((error) => {
+		      reject(error);
+		    });
+	    });
+	};
+
+	let deleteInvite = (inviteId) => {
+		let layers = [];
+		getInviteLayers(inviteId).then((results) => {
+			layers = results;
+			layers.forEach((layer) => {
+				deleteLayers(layer.id).then(() => {
+					console.log("layer delete working");
+				})
+				.catch((error) => {
+					console.log("delete layer error", error);
+				});
+			});
+		}).catch((error) => {
+			console.log("get layers in invite delete system not working", error);
+		});
+		return $q((resolve, reject) => {
+			console.log("delete invite", inviteId);
+    	$http.delete(`${FIREBASE_CONFIG.databaseURL}/invites/${inviteId}.json`)
+	    .then((results) => {
+	      resolve(results);
+	    })
+	    .catch((error) => {
+	      reject(error);
+	    });
+    });
+	};
+
+	return {addInvite:addInvite, createlayerObj:createlayerObj, getEventInvites:getEventInvites, editEventsDesigns:editEventsDesigns, getInviteLayers:getInviteLayers, getInvite:getInvite, editInvite:editInvite, editlayerObj:editlayerObj, getUserInvites:getUserInvites, deleteInvite:deleteInvite, deleteLayers:deleteLayers};
 });
