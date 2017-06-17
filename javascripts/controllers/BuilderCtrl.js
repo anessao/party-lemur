@@ -8,9 +8,7 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 	$scope.newEvent = {};
 	$scope.currentLayers = [];
 	$scope.showLayerOptions = false;
-	let thisEvent = "";
-
-	let layerSelectedImage = "";
+	let thisEventId = "";
 	
 	let getItems = () => {
 	  ImageFactory.getImageList($rootScope.user.uid).then((imagesObjs) => {
@@ -40,7 +38,6 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 	  	let img = new Image();
 	  	img.onload = () => {
 	    	ctx.drawImage(img, xAxis, yAxis, img.width * zScale, img.height * zScale);
-	    	console.log(obj);
 	    	if (obj.string !== undefined) {
 	    		writeMyText(obj);
 	    	}
@@ -53,7 +50,7 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 			ctx.fillText(textObj.string, textObj.xAxis, textObj.yAxis);
 	};
 
-	$scope.setLayer = (imageObj) => {
+	$scope.setImageLayer = (imageObj) => {
 		newLayer = {
 			imageCode:`data:${imageObj.filetype};base64,${imageObj.base64code}`,
 			xAxis: xAxis,
@@ -95,13 +92,7 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 	//******************************
 	//LAYER MANIPULATIONS
 
-	//Left and right
-	$scope.shiftLayerRight = (layerNum) => {
-		for (let a = 0; a < $scope.currentLayers.length; a++){
-			if (layerNum === $scope.currentLayers[a].layernumber) {
-				$scope.currentLayers[a].xAxis = $scope.currentLayers[a].xAxis + 10;
-			}
-		}
+	let layerReDraw = () => {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		$scope.currentLayers.forEach((layerObj) => {
 			if (layerObj.string !== undefined) {
@@ -111,20 +102,23 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 			}
 		});
 	};
+
+	//Left and right
+	$scope.shiftLayerRight = (layerNum) => {
+		for (let a = 0; a < $scope.currentLayers.length; a++){
+			if (layerNum === $scope.currentLayers[a].layernumber) {
+				$scope.currentLayers[a].xAxis = $scope.currentLayers[a].xAxis + 10;
+			}
+		}
+		layerReDraw();
+	};
 	$scope.shiftLayerLeft = (layerNum) => {
 		for (let a = 0; a < $scope.currentLayers.length; a++){
 			if (layerNum === $scope.currentLayers[a].layernumber) {
 				$scope.currentLayers[a].xAxis = $scope.currentLayers[a].xAxis - 10;
 			}
 		}
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
-		$scope.currentLayers.forEach((layerObj) => {
-			if (layerObj.string !== undefined) {
-				$timeout(() => {writeMyText(layerObj);}, 200);
-			} else {
-  			myDrawImage(layerObj);
-			}
-		});
+		layerReDraw();
 	};
 
 	//Up and Down
@@ -134,14 +128,7 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 				$scope.currentLayers[a].yAxis = $scope.currentLayers[a].yAxis - 10;
 			}
 		}
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
-		$scope.currentLayers.forEach((layerObj) => {
-			if (layerObj.string !== undefined) {
-				$timeout(() => {writeMyText(layerObj);}, 200);
-			} else {
-  			myDrawImage(layerObj);
-			}
-		});
+		layerReDraw();
 	};
 	$scope.shiftLayerDown = (layerNum) => {
 		for (let a = 0; a < $scope.currentLayers.length; a++){
@@ -149,14 +136,7 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 				$scope.currentLayers[a].yAxis = $scope.currentLayers[a].yAxis + 10;
 			}
 		}
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
-		$scope.currentLayers.forEach((layerObj) => {
-			if (layerObj.string !== undefined) {
-				$timeout(() => {writeMyText(layerObj);}, 200);
-			} else {
-  			myDrawImage(layerObj);
-			}
-		});
+		layerReDraw();
 	};
 
 	//Scale
@@ -166,14 +146,7 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 				$scope.currentLayers[a].scale = $scope.currentLayers[a].scale + 0.05;
 			}
 		}
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
-		$scope.currentLayers.forEach((layerObj) => {
-			if (layerObj.string !== undefined) {
-				$timeout(() => {writeMyText(layerObj);}, 200);
-			} else {
-  			myDrawImage(layerObj);
-			}
-		});
+		layerReDraw();
 	};
 		$scope.scaleLayerDown = (layerNum) => {
 		for (let a = 0; a < $scope.currentLayers.length; a++){
@@ -181,14 +154,7 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 				$scope.currentLayers[a].scale = $scope.currentLayers[a].scale - 0.05;
 			}
 		}
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
-		$scope.currentLayers.forEach((layerObj) => {
-			if (layerObj.string !== undefined) {
-				$timeout(() => {writeMyText(layerObj);}, 30);
-			} else {
-  			myDrawImage(layerObj);
-			}
-		});
+		layerReDraw();
 	};
 
 	//Delete Layer
@@ -198,14 +164,7 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 				$scope.currentLayers.splice(a, 1);
 			}
 		}
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
-		$scope.currentLayers.forEach((layerObj) => {
-			if (layerObj.string !== undefined) {
-				$timeout(() => {writeMyText(layerObj);}, 30);
-			} else {
-  			myDrawImage(layerObj);
-			}
-		});
+		layerReDraw();
 	};
 
 	//**************************
@@ -214,11 +173,12 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 	let myEvent = "none"; //adjust this when ready to work out UX on events
 
 	$scope.saveMyDesign = () => {
-		let designBase64 = canvas.toDataURL();
-		let newDesign = {
+	let designBase64 = canvas.toDataURL();
+	let newDesign = {
   		uid : $rootScope.user.uid,
   		base64code : designBase64,
-  		category : myEvent
+  		category : myEvent,
+  		eventid : thisEventId
   	};
   	
   	
@@ -252,6 +212,7 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 						console.log(error);
 					});
 				});
+  			$location.url('/profile');
   	}).catch((error) => {
   		console.log(error);
   	});
@@ -263,7 +224,8 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 
   $scope.saveEvent = () => {
   	$scope.newEvent.uid = $rootScope.user.uid;
-  	EventFactory.postNewEvent($scope.newEvent).then((answer) => {
+  	EventFactory.postNewEvent($scope.newEvent).then((results) => {
+  		thisEventId = results.data.name;
   		$scope.showLayerOptions = true;
   		getItems();
   	}).catch((error) => {

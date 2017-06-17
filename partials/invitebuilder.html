@@ -23,7 +23,7 @@
 		    	<h4>Create Your Layer:</h4><br>
 				    <div ng-repeat="image in images">
 				    	<div class="col-xs-2">
-				    		<button class="btn imageBuilderBtn" ng-click="setLayer(image)">
+				    		<button class="btn imageBuilderBtn" ng-click="setImageLayer(image)">
 				    			<img class="builderThumbnails" src="data:{{image.filetype}};base64,{{image.base64code}}">
 				    		</button>
 				    	</div>

@@ -24,4 +24,5 @@ app.controller("ImageAddCtrl", function($window, $location, $rootScope, $scope, 
   		console.log(error);
   	});
   };
+  
 });
