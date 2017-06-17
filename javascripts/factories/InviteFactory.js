@@ -11,6 +11,7 @@ app.factory("InviteFactory", function($q, $http, $rootScope, FIREBASE_CONFIG) {
 	};
 
 	let createlayerObj = (newLayer) => {
+		console.log("newLayer pre-posting: ", newLayer);
 		return $q((resolve, reject) => {
 			$http.post(`${FIREBASE_CONFIG.databaseURL}/layers.json`, JSON.stringify(newLayer))
 			.then((results) => {
@@ -21,7 +22,7 @@ app.factory("InviteFactory", function($q, $http, $rootScope, FIREBASE_CONFIG) {
 		});
 	};
 
-	let getSingleInvite = (eventsid) => {
+	let getEventInvites = (eventsid) => {
 		let invites = [];
 	    return $q((resolve, reject) => {
 	      $http.get(`${FIREBASE_CONFIG.databaseURL}/invites.json?orderBy="eventid"&equalTo="${eventsid}"`)
@@ -40,6 +41,16 @@ app.factory("InviteFactory", function($q, $http, $rootScope, FIREBASE_CONFIG) {
 	        });
 	    });
 	};
+	let getInvite = (inviteid) => {
+		return $q((resolve, reject) => {
+      $http.get(`${FIREBASE_CONFIG.databaseURL}/invites/${inviteid}.json`)
+      .then((resultz) => {
+        resolve(resultz.data);
+      }).catch((error) => {
+        reject(error);
+      });
+    });
+	};
 
 	let editEventsDesigns = (newDesign) => {
 		return $q((resolve, reject) => {
@@ -57,5 +68,48 @@ app.factory("InviteFactory", function($q, $http, $rootScope, FIREBASE_CONFIG) {
     });
 	};
 
-	return {addInvite:addInvite, createlayerObj:createlayerObj, getSingleInvite:getSingleInvite, editEventsDesigns:editEventsDesigns};
+	let editInvite = (newinvite) => {
+		return $q((resolve, reject) => {
+			$http.put(`${FIREBASE_CONFIG.databaseURL}/invites/${newinvite.id}.json`, JSON.stringify(newinvite))
+			.then((results) => {
+				resolve(results);
+			}).catch((error) => {
+				reject(error);
+			});
+		});
+	};
+
+	let editlayerObj = (newlayer) => {
+		return $q((resolve, reject) => {
+			$http.put(`${FIREBASE_CONFIG.databaseURL}/invites/${newlayer.id}.json`, JSON.stringify(newlayer))
+			.then((results) => {
+				resolve(results);
+			}).catch((error) => {
+				reject(error);
+			});
+		});
+	};
+
+	let getInviteLayers = (inviteId) => {
+		let layers = [];
+		console.log(layers);
+	    return $q((resolve, reject) => {
+	      $http.get(`${FIREBASE_CONFIG.databaseURL}/layers.json?orderBy="inviteid"&equalTo="${inviteId}"`)
+	        .then((fbItems) => {
+	            var itemCollection = fbItems.data;
+	            if(itemCollection.length !== null) {
+	            Object.keys(itemCollection).forEach((key) => {
+	                itemCollection[key].id = key;
+	                layers.push(itemCollection[key]);
+	            });
+	          }
+	            resolve(layers);
+	        })
+	        .catch((error) => {
+	            reject(error);
+	        });
+	    });
+
+	};
+	return {addInvite:addInvite, createlayerObj:createlayerObj, getEventInvites:getEventInvites, editEventsDesigns:editEventsDesigns, getInviteLayers:getInviteLayers, getInvite:getInvite, editInvite:editInvite, editlayerObj:editlayerObj};
 });

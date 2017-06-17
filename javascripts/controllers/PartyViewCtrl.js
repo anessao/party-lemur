@@ -20,7 +20,7 @@ app.controller("PartyViewCtrl", function($location, $rootScope, $routeParams, $s
   };
   getParty();
 
-  InviteFactory.getSingleInvite($routeParams.partyid).then((results) => {
+  InviteFactory.getEventInvites($routeParams.partyid).then((results) => {
   	$scope.partyDesigns = results;
   })
   .catch((error) => {
@@ -67,7 +67,9 @@ app.controller("PartyViewCtrl", function($location, $rootScope, $routeParams, $s
   	});
   };
 
+  $scope.editInvite = (inviteId) => {
+  	$location.url(`/editor/${inviteId}`);
+  };
 
-
-
+  //end controller
 });

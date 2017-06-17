@@ -1,23 +1,40 @@
-app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $scope, $timeout, ImageFactory, InviteFactory, EventFactory) {
+app.controller("BuilderEditorCtrl", function($location, $rootScope, $routeParams, $scope, $timeout, ImageFactory, InviteFactory, EventFactory) {
 	
 	let canvas = document.getElementById("inviteBuilder");
 	let ctx = canvas.getContext('2d');
 
 	$scope.images = [];
 	$scope.textInput = "";
-	$scope.newEvent = {};
 	$scope.currentLayers = [];
-	$scope.showLayerOptions = false;
+	$scope.showLayerOptions = true;
 	let thisEventId = "";
 	
 	let getItems = () => {
 	  ImageFactory.getImageList($rootScope.user.uid).then((imagesObjs) => {
 	    $scope.images = imagesObjs;
-	    console.log($scope.images);
 	  }).catch((error) => {
 	    console.log("get error", error);
 	  });
 	};
+
+	getItems();
+
+	InviteFactory.getInviteLayers($routeParams.inviteid).then((results) => {
+		results.sort(function (a, b) {
+  		return a.layernumber - b.layernumber;
+		});
+		$scope.currentLayers = results;
+		layerReDraw();
+	})
+	.catch((error) => {
+		console.log(error);
+	});
+	InviteFactory.getInvite($routeParams.inviteid).then((results) => {
+		thisEventId = results.eventid;
+				console.log("eventid, ", thisEventId);
+	}).catch((error) => {
+		console.log(error);
+	});
 
 //**************************
 // IMAGE BUILDER V2
@@ -25,7 +42,6 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 	let xAxis = 10;
 	let yAxis = 10;
 	let zScale = 0.5;
-	let layerCounter = 0;
 	let fontSize = 50;
 	let fontType = "Futura";
 
@@ -51,6 +67,7 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 	};
 
 	$scope.setImageLayer = (imageObj) => {
+		let layerCounter = $scope.currentLayers[$scope.currentLayers.length - 1].layernumber + 1;
 		newLayer = {
 			imageCode:`data:${imageObj.filetype};base64,${imageObj.base64code}`,
 			xAxis: xAxis,
@@ -70,6 +87,7 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 	};
 
 	$scope.createTextLayer = (textString) => {
+		let layerCounter = $scope.currentLayers[$scope.currentLayers.length - 1].layernumber + 1;
 		let newLayer = {
 			string: textString,
 			xAxis: 100,
@@ -178,35 +196,37 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
   		uid : $rootScope.user.uid,
   		base64code : designBase64,
   		category : myEvent,
-  		eventid : thisEventId
+  		eventid : thisEventId,
+  		id: $routeParams.inviteid
   	};
   	
   	
-  	InviteFactory.addInvite(newDesign).then((results) => {
+  	InviteFactory.editInvite(newDesign).then((results) => {
   			$scope.currentLayers.forEach((layerObj) => {
   				let newLayerObj = {};
-  				newLayerObj.inviteId = results.data.name;
   				if (layerObj.string !== undefined){
   						newLayerObj = {
-  							inviteid: results.data.name,
+  							inviteid: $routeParams.inviteid,
 								string: layerObj.string,
 								xAxis: layerObj.xAxis,
 								yAxis: layerObj.yAxis,
 								size: layerObj.size,
 								fontType: layerObj.fontType,
-								layernumber: layerObj.layernumber
+								layernumber: layerObj.layernumber,
+								id: layerObj.id
 							};
 						} else {
 							newLayerObj = {
-								inviteid: results.data.name,
+								inviteid: $routeParams.inviteid,
 								imageCode: layerObj.imageCode,
 								xAxis: layerObj.xAxis,
 								yAxis: layerObj.yAxis,
 								scale: layerObj.scale,
-								layernumber: layerObj.layernumber
+								layernumber: layerObj.layernumber,
+								id: layerObj.id
 							};
 						}
-					InviteFactory.createlayerObj(newLayerObj).then(() => {
+					InviteFactory.editlayerObj(newLayerObj).then(() => {
 					})
 					.catch((error) => {
 						console.log(error);
@@ -217,20 +237,5 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
   		console.log(error);
   	});
 	};
-
-	// **************************
-	// SET EVENT
-	// **************************
-
-  $scope.saveEvent = () => {
-  	$scope.newEvent.uid = $rootScope.user.uid;
-  	EventFactory.postNewEvent($scope.newEvent).then((results) => {
-  		thisEventId = results.data.name;
-  		$scope.showLayerOptions = true;
-  		getItems();
-  	}).catch((error) => {
-  		console.log(error);
-  	});
-  };
 
 });

@@ -60,6 +60,11 @@ app.config(function($routeProvider) {
       controller: 'BuilderCtrl',
       resolve: {isAuth}
     })
+    .when('/editor/:inviteid', {
+      templateUrl: 'partials/invitebuilder.html',
+      controller: 'BuilderEditorCtrl',
+      resolve: {isAuth}
+    })
     .when('/myparties', {
       templateUrl: 'partials/party-list.html',
       controller: 'PartyListCtrl',
