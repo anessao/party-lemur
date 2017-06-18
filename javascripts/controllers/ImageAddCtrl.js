@@ -13,7 +13,8 @@ app.controller("ImageAddCtrl", function($window, $location, $rootScope, $scope, 
   		uid : $rootScope.user.uid,
   		base64code : $scope.file.base64,
   		filetype : $scope.file.filetype,
-  		category : $scope.imageCategory
+  		category : $scope.imageCategory,
+      filename: $scope.file.filename
   	};
   	ImageFactory.postNewImage(newFile).then(() => {
   		newFile = {};

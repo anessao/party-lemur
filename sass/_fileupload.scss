@@ -1,0 +1,15 @@
+@import "colors";
+@import "fonts";
+
+.uploaderview {
+	input[type="file"] {
+		display: inline-block;
+	}
+	.link-padding {
+		padding-bottom: 10px;
+	}
+	img {
+		display: block;
+		margin: 0 auto;
+	}
+}

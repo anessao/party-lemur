@@ -3,6 +3,8 @@
 @import "navbar";
 @import "auth";
 @import "profile";
+@import "fileupload";
+@import "imagelist";
 
 .graybar {
 	width: 100%;
@@ -13,6 +15,7 @@
 
 .partyLemurBody {
 	height: 95vh;
+	overflow: scroll;
 }
 footer {
 	height: 50px;
