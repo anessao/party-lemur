@@ -11,3 +11,18 @@ canvas {
 	max-height: 500px;
 	max-width: 500px;
 }
+
+.builderThumbnails {
+	display: block;
+	width: 80px;
+}
+
+.imageBuilderBtn {
+	width: 60px;
+	height: 60px;
+	overflow: hidden;
+	border-radius: 0px;
+	border: 1px solid gray;
+	padding: 0px;
+	background-color: white;
+}

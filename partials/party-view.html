@@ -1,0 +1,25 @@
+<div class="container">	
+	<div class="row">	
+		<h3>{{selectedParty.title}}</h3>
+		<p>{{selectedParty.date}}</p>
+		<p>{{selectedParty.location}}</p>
+		<button class="btn btn-danger fa fa-trash-o" ng-click="deleteParty(selectedParty.id)"></button><br>
+		<button class="btn btn-info fa fa-pencil-square-o" ng-click="editPartyShow()"></button>
+	</div>
+	<div class="row" ng-show="partyEditInfo">
+		<p>New Event Title:</p>
+		<input type="text" class="form-control col-xs-4" ng-model="editPartyObj.title">
+		<p>New Location:</p>
+		<input type="text" class="form-control col-xs-4" ng-model="editPartyObj.location">
+		<p>New Date:</p>
+		<input type="text" class="form-control col-xs-4" ng-model="editPartyObj.date">
+		<button class="btn btn-warning" ng-click="submitPartyEdit(selectedParty.id)">Submit Edit</button>
+	</div>
+	<div class="row">
+		<div class="thumbnail col-xs-4" ng-repeat="partyinvite in partyDesigns">
+			<img src="{{partyinvite.base64code}}">
+			<button class="btn btn-info fa fa-pencil-square-o" ng-click="editInvite(partyinvite.id)"></button>
+		</div>
+
+	</div>
+</div>
