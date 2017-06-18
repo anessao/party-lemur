@@ -11,9 +11,29 @@ app.factory("InviteFactory", function($q, $http, $rootScope, FIREBASE_CONFIG) {
 	};
 
 	let createlayerObj = (newLayer) => {
-		console.log("newLayer pre-posting: ", newLayer);
+		console.log(newLayer);
+		if (newLayer.string !== undefined){
+			newLayerObj = {
+				inviteid: newLayer.inviteid,
+				string: newLayer.string,
+				xAxis: newLayer.xAxis,
+				yAxis: newLayer.yAxis,
+				size: newLayer.size,
+				fontType: newLayer.fontType,
+				layernumber: newLayer.layernumber
+			};
+		} else {
+			newLayerObj = {
+				inviteid: newLayer.inviteid,
+				imageCode: newLayer.imageCode,
+				xAxis: newLayer.xAxis,
+				yAxis: newLayer.yAxis,
+				scale: newLayer.scale,
+				layernumber: newLayer.layernumber
+			};
+		}
 		return $q((resolve, reject) => {
-			$http.post(`${FIREBASE_CONFIG.databaseURL}/layers.json`, JSON.stringify(newLayer))
+			$http.post(`${FIREBASE_CONFIG.databaseURL}/layers.json`, JSON.stringify(newLayerObj))
 			.then((results) => {
 				resolve(results);
 			}).catch((error) => {
@@ -100,8 +120,28 @@ app.factory("InviteFactory", function($q, $http, $rootScope, FIREBASE_CONFIG) {
 	};
 
 	let editlayerObj = (newlayer) => {
+		if (newlayer.string !== undefined){
+			newLayerObj = {
+				inviteid: newlayer.inviteid,
+				string: newlayer.string,
+				xAxis: newlayer.xAxis,
+				yAxis: newlayer.yAxis,
+				size: newlayer.size,
+				fontType: newlayer.fontType,
+				layernumber: newlayer.layernumber,
+			};
+		} else {
+			newLayerObj = {
+				inviteid: newlayer.inviteid,
+				imageCode: newlayer.imageCode,
+				xAxis: newlayer.xAxis,
+				yAxis: newlayer.yAxis,
+				scale: newlayer.scale,
+				layernumber: newlayer.layernumber,
+			};
+		}
 		return $q((resolve, reject) => {
-			$http.put(`${FIREBASE_CONFIG.databaseURL}/invites/${newlayer.id}.json`, JSON.stringify(newlayer))
+			$http.put(`${FIREBASE_CONFIG.databaseURL}/invites/${newLayerObj.id}.json`, JSON.stringify(newLayerObj))
 			.then((results) => {
 				resolve(results);
 			}).catch((error) => {
@@ -112,7 +152,6 @@ app.factory("InviteFactory", function($q, $http, $rootScope, FIREBASE_CONFIG) {
 
 	let getInviteLayers = (inviteId) => {
 		let layers = [];
-		console.log(layers);
 	    return $q((resolve, reject) => {
 	      $http.get(`${FIREBASE_CONFIG.databaseURL}/layers.json?orderBy="inviteid"&equalTo="${inviteId}"`)
 	        .then((fbItems) => {

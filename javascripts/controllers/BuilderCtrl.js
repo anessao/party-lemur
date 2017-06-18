@@ -13,12 +13,11 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 	let getItems = () => {
 	  ImageFactory.getImageList($rootScope.user.uid).then((imagesObjs) => {
 	    $scope.images = imagesObjs;
-	    console.log($scope.images);
 	  }).catch((error) => {
-	    console.log("get error", error);
+	    console.log("Get user items error", error);
 	  });
 	};
-
+	getItems();
 //**************************
 // IMAGE BUILDER V2
 //**************************
@@ -184,42 +183,21 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
   	
   	InviteFactory.addInvite(newDesign).then((results) => {
   			$scope.currentLayers.forEach((layerObj) => {
-  				let newLayerObj = {};
-  				newLayerObj.inviteId = results.data.name;
-  				if (layerObj.string !== undefined){
-  						newLayerObj = {
-  							inviteid: results.data.name,
-								string: layerObj.string,
-								xAxis: layerObj.xAxis,
-								yAxis: layerObj.yAxis,
-								size: layerObj.size,
-								fontType: layerObj.fontType,
-								layernumber: layerObj.layernumber
-							};
-						} else {
-							newLayerObj = {
-								inviteid: results.data.name,
-								imageCode: layerObj.imageCode,
-								xAxis: layerObj.xAxis,
-								yAxis: layerObj.yAxis,
-								scale: layerObj.scale,
-								layernumber: layerObj.layernumber
-							};
-						}
-					InviteFactory.createlayerObj(newLayerObj).then(() => {
+  				layerObj.inviteid = results.data.name;
+					InviteFactory.createlayerObj(layerObj).then(() => {
 					})
 					.catch((error) => {
-						console.log(error);
+						console.log("Save new layers error", error);
 					});
 				});
   			$location.url('/profile');
   	}).catch((error) => {
-  		console.log(error);
+  		console.log("Save invite error", error);
   	});
 	};
 
 	// **************************
-	// SET EVENT
+	// USER DESIGN AND EVENT SAVES
 	// **************************
 
   $scope.saveEvent = () => {
@@ -227,9 +205,9 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
   	EventFactory.postNewEvent($scope.newEvent).then((results) => {
   		thisEventId = results.data.name;
   		$scope.showLayerOptions = true;
-  		getItems();
+  		// getItems();
   	}).catch((error) => {
-  		console.log(error);
+  		console.log("Save event error", error);
   	});
   };
 

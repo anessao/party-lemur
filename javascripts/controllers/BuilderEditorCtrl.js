@@ -13,7 +13,7 @@ app.controller("BuilderEditorCtrl", function($location, $rootScope, $routeParams
 	  ImageFactory.getImageList($rootScope.user.uid).then((imagesObjs) => {
 	    $scope.images = imagesObjs;
 	  }).catch((error) => {
-	    console.log("get error", error);
+	    console.log("Get image list in edit ctrl failed", error);
 	  });
 	};
 
@@ -21,19 +21,19 @@ app.controller("BuilderEditorCtrl", function($location, $rootScope, $routeParams
 
 	InviteFactory.getInviteLayers($routeParams.inviteid).then((results) => {
 		results.sort(function (a, b) {
-  		return a.layernumber - b.layernumber;
-		});
-		$scope.currentLayers = results;
-		layerReDraw();
-	})
-	.catch((error) => {
-		console.log(error);
+	  		return a.layernumber - b.layernumber;
+			});
+			$scope.currentLayers = results;
+			layerReDraw();
+		})
+		.catch((error) => {
+			console.log("Get invite layers failed in edit ctrl", error);
 	});
+
 	InviteFactory.getInvite($routeParams.inviteid).then((results) => {
-		thisEventId = results.eventid;
-				console.log("eventid, ", thisEventId);
-	}).catch((error) => {
-		console.log(error);
+			thisEventId = results.eventid;
+		}).catch((error) => {
+			console.log("Get invite failed in edit ctrl", error);
 	});
 
 //**************************
@@ -100,7 +100,7 @@ app.controller("BuilderEditorCtrl", function($location, $rootScope, $routeParams
 		layerCounter ++;
 		$scope.currentLayers.forEach((layerObj) => {
 			if (layerObj.string !== undefined) {
-				$timeout(() => {writeMyText(layerObj);}, 200);
+				$timeout(() => {writeMyText(layerObj);}, 100);
 			} else {
   			myDrawImage(layerObj);
 			}
@@ -114,7 +114,7 @@ app.controller("BuilderEditorCtrl", function($location, $rootScope, $routeParams
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		$scope.currentLayers.forEach((layerObj) => {
 			if (layerObj.string !== undefined) {
-				$timeout(() => {writeMyText(layerObj);}, 200);
+				$timeout(() => {writeMyText(layerObj);}, 100);
 			} else {
   			myDrawImage(layerObj);
 			}
@@ -186,7 +186,7 @@ app.controller("BuilderEditorCtrl", function($location, $rootScope, $routeParams
 	};
 
 	//**************************
-	// FINAL DESIGN CHANGE
+	// USER DESIGN SAVES
 	//**************************
 	let myEvent = "none"; //adjust this when ready to work out UX on events
 
@@ -203,47 +203,27 @@ app.controller("BuilderEditorCtrl", function($location, $rootScope, $routeParams
   	
   	InviteFactory.editInvite(newDesign).then((results) => {
   			$scope.currentLayers.forEach((layerObj) => {
-  				let newLayerObj = {};
-  				if (layerObj.string !== undefined){
-  						newLayerObj = {
-  							inviteid: $routeParams.inviteid,
-								string: layerObj.string,
-								xAxis: layerObj.xAxis,
-								yAxis: layerObj.yAxis,
-								size: layerObj.size,
-								fontType: layerObj.fontType,
-								layernumber: layerObj.layernumber,
-								id: layerObj.id
-							};
-						} else {
-							newLayerObj = {
-								inviteid: $routeParams.inviteid,
-								imageCode: layerObj.imageCode,
-								xAxis: layerObj.xAxis,
-								yAxis: layerObj.yAxis,
-								scale: layerObj.scale,
-								layernumber: layerObj.layernumber,
-								id: layerObj.id
-							};
-						}
+  				layerObj.inviteid = $routeParams.inviteid;
+  				layerObj.id = layerObj.id;
 
-					if (newLayerObj.id === undefined) {
-						InviteFactory.createlayerObj(newLayerObj).then(() => {
+					if (layerObj.id === undefined) {
+							InviteFactory.createlayerObj(layerObj).then(() => {
 						})
 						.catch((error) => {
-							console.log(error);
+							console.log("Create layer from edit controller failed", error);
 						});
 					} else {
-						InviteFactory.editlayerObj(newLayerObj).then(() => {
+							InviteFactory.editlayerObj(layerObj).then(() => {
 						})
 						.catch((error) => {
-							console.log(error);
+							console.log("Edit Layer from controller failed", error);
 						});
 					}
 				});
+
   			$location.url('/profile');
   	}).catch((error) => {
-  		console.log(error);
+  		console.log("Edit invite from controller failed", error);
   	});
 	};
 

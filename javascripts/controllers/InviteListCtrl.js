@@ -26,13 +26,13 @@ app.controller("InviteListCtrl", function($location, $rootScope, $routeParams, $
 
 	getImages();
 
-	// let getParties = () => {
- //  	EventFactory.getPartyList($rootScope.user.uid).then((partyObjs) => {
-	//     $scope.parties = partyObjs;
-	//   }).catch((error) => {
-	//     console.log("get error", error);
-	//   });
- //  	};
- //  	getParties();
+	let getParties = () => {
+  	EventFactory.getPartyList($rootScope.user.uid).then((partyObjs) => {
+	    $scope.parties = partyObjs;
+	  }).catch((error) => {
+	    console.log("get error", error);
+	  });
+  	};
+  	getParties();
 
 });
