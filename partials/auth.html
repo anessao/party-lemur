@@ -1,6 +1,6 @@
 <div uib-alert ng-repeat="alert in alerts" class="alert-danger">{{alert.msg}}</div>
 
-<div class="container col-xs-4 col-xs-offset-4" ng-if="!user.uid">
+<div class="container col-xs-4 col-xs-offset-4 authview" ng-if="!user.uid">
   <input type="email" id="inputEmail" class="form-control form-spacing" placeholder="Email Address" ng-model="auth.email" required autofocus><br>
   <input type="password" class="form-control form-spacing" placeholder="Password" ng-model="auth.password" required><br>
   <input type="text" class="form-control form-spacing" placeholder="Username" ng-model="auth.username" required><br>

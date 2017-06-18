@@ -22,6 +22,24 @@
   font-size: 1.5rem;
   margin-top: 10px; }
 
+.authview .form-control {
+  border: 1px solid #94c73f;
+  border-radius: 0px; }
+
+.authview .btn-success {
+  background-color: #3f88c8;
+  border-radius: 0px;
+  border: none;
+  width: 47%;
+  margin-right: 12px; }
+
+.authview .btn-primary {
+  background-color: #eead20;
+  border-radius: 0px;
+  border: none;
+  width: 47%;
+  margin-left: 12px; }
+
 .graybar {
   width: 100%;
   height: 15px;
