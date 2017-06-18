@@ -40,11 +40,53 @@
   width: 47%;
   margin-left: 12px; }
 
+.profileview .panel {
+  height: 35rem;
+  width: 35rem;
+  border: none;
+  box-shadow: inset 0 0 20px #474546; }
+
+.profileview .panel-body {
+  text-align: center;
+  line-height: 32rem; }
+
+.profileview .uploadBtn {
+  background-color: #a85265; }
+
+.profileview .createBtn {
+  background-color: #214866; }
+
+.profileview .myEventsBtn {
+  background-color: #94c73f; }
+
+.profileview .myUploadsBtn {
+  background-color: #f7ac9e; }
+
+.profileview .myInvitesBtn {
+  background-color: #3f88c8; }
+
+.profileview a, .profileview a:hover, .profileview a:link, .profileview a:active {
+  color: white;
+  font-family: "Open Sans", sans-serif;
+  font-size: 2rem;
+  font-weight: bolder;
+  text-decoration: none; }
+
 .graybar {
   width: 100%;
   height: 15px;
   background-color: #474546;
   margin-bottom: 30px; }
+
+.partyLemurBody {
+  height: 95vh; }
+
+footer {
+  height: 50px;
+  width: 100%;
+  padding: 10px;
+  background-color: #474546;
+  color: white; }
 
 canvas {
   border: 1px solid black; }

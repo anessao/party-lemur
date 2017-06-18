@@ -2,6 +2,7 @@
 @import "fonts";
 @import "navbar";
 @import "auth";
+@import "profile";
 
 .graybar {
 	width: 100%;
@@ -9,6 +10,19 @@
 	background-color: $darkgray;
 	margin-bottom: 30px;
 }
+
+.partyLemurBody {
+	height: 95vh;
+}
+footer {
+	height: 50px;
+	width: 100%;
+	padding: 10px;
+	background-color: $darkgray;
+	color: white;
+}
+
+
 
 canvas {
 	border: 1px solid black;

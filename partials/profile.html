@@ -1,41 +1,56 @@
-<div class="container">
+<div class="container profileview">
 	<div class="row">
-		<a ng-href="#!/image/new">
-			<div class="panel panel-default col-xs-3">
-			  <div class="panel-body">
-			  	Upload an Image
-			  </div>
-			</div>
-		</a>
-		<a ng-href="#!/invitebuilder">
-			<div class="panel panel-default col-xs-3">
-			  <div class="panel-body">
-			  	Create An Invite!
-			  </div>
-			</div>
-		</a>
-		<a ng-href="#!/myparties">
-			<div class="panel panel-default col-xs-3">
-			  <div class="panel-body">
-			  	My events!
-			  </div>
-			</div>
-		</a>
+		<div class="col-xs-4">
+			<a class="largeBtn" ng-href="#!/image/new">
+				<div class="panel panel-default uploadBtn">
+				  <div class="panel-body">
+				  	<p class="fa fa-upload"></p>
+				  	Upload an Image
+				  </div>
+				</div>
+			</a>
+		</div>
+		<div class="col-xs-4">
+			<a ng-href="#!/invitebuilder">
+				<div class="panel panel-default createBtn">
+				  <div class="panel-body">
+				  	<p class="fa fa-plus-circle"></p>
+				  	Create An Invite!
+				  </div>
+				</div>
+			</a>
+		</div>
+		<div class="col-xs-4">
+			<a ng-href="#!/myparties">
+				<div class="panel panel-default myEventsBtn">
+				  <div class="panel-body">
+				  	<p class="fa fa-calendar-check-o"></p>
+				  	My events!
+				  </div>
+				</div>
+			</a>
+		</div>
 	</div>
 	<div class="row">
-		<a ng-href="#!/images/list">
-			<div class="panel panel-default col-xs-3">
-			  <div class="panel-body">
-			  	View your uploads
-			  </div>
-			</div>
-		</a>
-		<a ng-href="#!/invite/list">
-			<div class="panel panel-default col-xs-3">
-			  <div class="panel-body">
-			  	My invites!
-			  </div>
-			</div>
-		</a>
+		<div class="col-xs-4">
+			<a ng-href="#!/images/list">
+				<div class="panel panel-default myUploadsBtn">
+				  <div class="panel-body">
+				  	<p class="fa fa-picture-o"></p>
+				  	View your uploads
+				  </div>
+				</div>
+			</a>
+		</div>
+		<div class="col-xs-4">
+			<a ng-href="#!/invite/list">
+				<div class="panel panel-default myInvitesBtn">
+				  <div class="panel-body">
+				  	<p class="fa fa-file-image-o"></p>
+				  	My invites!
+				  </div>
+				</div>
+			</a>
+		</div>
 	</div>
 </div>
