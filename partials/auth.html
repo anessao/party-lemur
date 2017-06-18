@@ -1,16 +1,15 @@
-<h1>Auth Connected</h1>
 <div uib-alert ng-repeat="alert in alerts" class="alert-danger">{{alert.msg}}</div>
 
 <div class="container col-xs-4 col-xs-offset-4" ng-if="!user.uid">
-  <input type="email" id="inputEmail" class="form-control form-spacing" placeholder="Email Address" ng-model="auth.email" required autofocus>
-  <input type="password" class="form-control form-spacing" placeholder="Password" ng-model="auth.password" required>
-  <input type="text" class="form-control form-spacing" placeholder="Username" ng-model="auth.username" required>
+  <input type="email" id="inputEmail" class="form-control form-spacing" placeholder="Email Address" ng-model="auth.email" required autofocus><br>
+  <input type="password" class="form-control form-spacing" placeholder="Password" ng-model="auth.password" required><br>
+  <input type="text" class="form-control form-spacing" placeholder="Username" ng-model="auth.username" required><br>
   <button class="btn btn-lg btn-success col-xs-6 loginBtn" ng-click="loginUser()">Login</button>
   <button class="btn btn-lg btn-primary col-xs-6 registerBtn" ng-click="registerUser()">Register</button>
 </div>
 <div class="container col-xs-4 col-xs-offset-4" ng-if="user.uid">
 	<div><h3>My Account</h3></div>
-	Email: <input type="email" class="form-control form-spacing" ng-model="userUpdate.email">
-	Name: <input type="text" class="form-control form-spacing" ng-model="userUpdate.name">
-	<button class="btn btn-lg btn-info col-xs-6 updateBtn" ng-click="updateUser()">Update</button>
+	Email: <input type="email" class="form-control form-spacing" ng-model="userUpdate.email"><br>
+	Name: <input type="text" class="form-control form-spacing" ng-model="userUpdate.name"><br>
+	<button class="btn btn-lg btn-info col-xs-6 updateBtn" ng-click="updateUser()">Update</button><br>
 </div>
