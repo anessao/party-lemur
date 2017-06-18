@@ -131,7 +131,6 @@ app.factory("InviteFactory", function($q, $http, $rootScope, FIREBASE_CONFIG) {
 	    });
 	};
 	let deleteLayers = (layerid) => {
-		console.log("layer id", layerid)
 		return $q((resolve, reject) => {
 	    $http.delete(`${FIREBASE_CONFIG.databaseURL}/layers/${layerid}.json`)
 		    .then((results) => {

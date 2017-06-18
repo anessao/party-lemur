@@ -226,11 +226,20 @@ app.controller("BuilderEditorCtrl", function($location, $rootScope, $routeParams
 								id: layerObj.id
 							};
 						}
-					InviteFactory.editlayerObj(newLayerObj).then(() => {
-					})
-					.catch((error) => {
-						console.log(error);
-					});
+
+					if (newLayerObj.id === undefined) {
+						InviteFactory.createlayerObj(newLayerObj).then(() => {
+						})
+						.catch((error) => {
+							console.log(error);
+						});
+					} else {
+						InviteFactory.editlayerObj(newLayerObj).then(() => {
+						})
+						.catch((error) => {
+							console.log(error);
+						});
+					}
 				});
   			$location.url('/profile');
   	}).catch((error) => {
