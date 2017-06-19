@@ -211,4 +211,9 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
   	});
   };
 
+  $scope.noEvent = () => {
+  	thisEventId = "noparty";
+  	$scope.showLayerOptions = true;
+  };
+
 });

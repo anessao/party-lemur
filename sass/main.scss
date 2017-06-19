@@ -5,6 +5,7 @@
 @import "profile";
 @import "fileupload";
 @import "imagelist";
+@import "builder";
 
 .graybar {
 	width: 100%;
@@ -24,34 +25,16 @@ footer {
 	background-color: $darkgray;
 	color: white;
 }
-
+.breaker {
+	display: block;
+	width: 100%;
+	height: 1px;
+	margin-top: 9px;
+	margin-bottom: 10px;
+	border-bottom: 1px solid $lightgray;
+}
 
 
 canvas {
 	border: 1px solid black;
-}
-
-.uploadView {
-	max-height: 200px;
-	max-width: 200px;
-}
-
-.uploadPreview {
-	max-height: 500px;
-	max-width: 500px;
-}
-
-.builderThumbnails {
-	display: block;
-	width: 80px;
-}
-
-.imageBuilderBtn {
-	width: 60px;
-	height: 60px;
-	overflow: hidden;
-	border-radius: 0px;
-	border: 1px solid gray;
-	padding: 0px;
-	background-color: white;
 }

@@ -1,14 +1,12 @@
-<div class="container">
+<div class="container builderview">
 	<div class="col-xs-6">
 		<div class="panel panel-default">
 		  <div class="panel-heading">
-		    <h3 class="panel-title">Layer Control</h3>
+		    <h3 class="panel-title">Party Designer</h3>
 		  </div>
 		  <div class="panel-body">
-		    <!-- <div class="row" ng-repeat="layer in layers">
-				
-		    	
-		    </div> -->
+
+		  <!-- //////////EVENT SETTING OPTIONS\\\\\\\\\\-->
 		    <div ng-show="!showLayerOptions">
 		    	<h4>Create an Event:</h4><br>
 			    Title:<br>
@@ -16,27 +14,46 @@
 			    Location:<br>
 			    <input type="text" class="form-control" ng-model="newEvent.location">
 			    Date:<br>
-			    <input type="text" class="form-control" ng-model="newEvent.date">
+			    <input type="text" class="form-control" ng-model="newEvent.date"><br>
 			    <button class="btn btn-success" ng-click="saveEvent()">Save Event</button>
+			    <button class="btn btn-success" ng-click="noEvent()">No Event</button>
 		    </div>
+		    <!-- //////////LAYER OPTIONS\\\\\\\\\\-->
 		    <div ng-show="showLayerOptions">
-		    	<h4>Create Your Layer:</h4><br>
-				    <div ng-repeat="image in images">
-				    	<div class="col-xs-2">
+		    	<h4>Create Your Layer:</h4>
+		    	<div class="row">
+		    		 <div ng-repeat="image in images">
+				    	<div class=" builderSwatch col-xs-2">
 				    		<button class="btn imageBuilderBtn" ng-click="setImageLayer(image)">
 				    			<img class="builderThumbnails" src="data:{{image.filetype}};base64,{{image.base64code}}">
 				    		</button>
 				    	</div>
 				    </div>
-				    <input type="text" class="form-control" ng-model="textInput">
-				    <button class="btn btn-info" ng-click="createTextLayer(textInput)">Submit Text</button>
-		    </div><br>
-		    <div class="col-xs-12" ng-repeat="layer in currentLayers">
-		    	<h5>Layer {{layer.layernumber}}</h5>
-		    	<button class="btn btn-success" ng-click="shiftLayerRight(layer.layernumber)">Right</button>
-		    	<button class="btn btn-success" ng-click="shiftLayerLeft(layer.layernumber)">Left</button>
-		    	<button class="btn btn-success" ng-click="shiftLayerUp(layer.layernumber)">Up</button>
-		    	<button class="btn btn-success" ng-click="shiftLayerDown(layer.layernumber)">Down</button>
+		    	</div>
+			    <div class="input-group">
+			    	<input type="text" class="form-control textLayerInput" ng-model="textInput">
+			    	<span class="input-group-btn">
+			    		<button class="btn btn-info" ng-click="createTextLayer(textInput)">Create Text Layer</button>
+			    	</span>
+			    </div>
+			    <div class="breaker"></div>
+		    </div>
+		    <!-- //////////LAYERS\\\\\\\\\\-->
+		    <div class="col-xs-12 inviteLayerOptions" ng-repeat="layer in currentLayers">
+		    	<h5>Layer {{layer.layernumber + 1}}</h5>
+		    	<div class="moveOptions col-xs-2 pull-right">
+		    		<div class="row">
+		    			<button class="btn moveBtn-up fa fa-chevron-up col-xs-12" ng-click="shiftLayerUp(layer.layernumber)"></button>
+		    		</div>
+		    		<div class="row">
+		    			<button class="btn moveBtn-left col-xs-6" ng-click="shiftLayerLeft(layer.layernumber)"><span class="fa fa-chevron-left pull-left"></span></button>
+		    			<button class="btn moveBtn-right col-xs-6" ng-click="shiftLayerRight(layer.layernumber)"><span class="fa fa-chevron-right pull-right"></span></button>
+		    		</div>
+		    		<div class="row">
+		    			<button class="btn moveBtn-down fa fa-chevron-down col-xs-12" ng-click="shiftLayerDown(layer.layernumber)"></button>
+		    		</div>
+		    	</div>
+		    	
 		    	<button class="btn btn-success" ng-click="scaleLayerUp(layer.layernumber)">Scale + </button>
 		    	<button class="btn btn-success" ng-click="scaleLayerDown(layer.layernumber)">Scale - </button>
 		    	<button class="btn btn-warning" ng-click="deleteLayer(layer.layernumber)">Delete</button>
@@ -48,3 +65,4 @@
 		<canvas id="inviteBuilder" width="360px" height="504px">Oops! Your Browser doesn't support me! [ You can always try chrome ;) ]</canvas>
 	</div>
 	<div class="container"><button class="btn btn-success" ng-click="saveMyDesign()">Save Design</button></div>
+	</div>

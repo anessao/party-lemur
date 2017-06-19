@@ -30,21 +30,20 @@
   background-color: #3f88c8;
   border-radius: 0px;
   border: none;
-  width: 47%;
-  margin-right: 12px; }
+  width: 47%; }
 
 .authview .btn-primary {
   background-color: #eead20;
   border-radius: 0px;
   border: none;
-  width: 47%;
-  margin-left: 12px; }
+  width: 47%; }
 
 .profileview .panel {
   height: 35rem;
   width: 35rem;
   border: none;
-  box-shadow: inset 0 0 20px #474546; }
+  box-shadow: inset 0 0 20px #474546;
+  border-radius: 0px; }
 
 .profileview .panel-body {
   text-align: center;
@@ -88,10 +87,82 @@
 
 .uploadListView .thumbnail {
   height: 300px;
-  overflow: scroll; }
+  overflow: scroll;
+  border-radius: 0px; }
   .uploadListView .thumbnail img {
     min-height: 190px;
     max-height: 190px; }
+
+.builderview .panel-default {
+  border-radius: 0px;
+  border: 1px solid #a85265; }
+
+.builderview .builderThumbnails {
+  display: block;
+  width: 80px; }
+
+.builderview .inviteLayerOptions {
+  background-color: #f9f9f9;
+  padding-bottom: 10px;
+  border-bottom: 2px solid white; }
+
+.builderview .imageBuilderBtn {
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 0px;
+  border: 2px solid #ececed;
+  padding: 0px;
+  background-color: white; }
+
+.builderview .panel-heading {
+  background-color: #a85265;
+  border-radius: 0px; }
+
+.builderview .builderSwatch {
+  margin-bottom: 10px; }
+
+.builderview .panel-title {
+  font-family: "Vibur", cursive;
+  font-size: 2rem;
+  color: white; }
+
+.builderview .btn-info {
+  border-radius: 0px;
+  background-color: #3f88c8;
+  border: 1px solid #3f88c8; }
+
+.builderview .textLayerInput {
+  border-radius: 0px;
+  border: 1px solid #3f88c8; }
+
+.builderview .moveBtn-up {
+  border-top-left-radius: 200px;
+  border-top-right-radius: 200px;
+  border-bottom-radius: 0px;
+  background-color: #eead20; }
+
+.builderview .moveBtn-down {
+  border-bottom-left-radius: 200px;
+  border-bottom-right-radius: 200px;
+  background-color: #eead20; }
+
+.builderview .moveBtn-right {
+  border-radius: 0px;
+  background-color: #f7ca88; }
+
+.builderview .moveBtn-left {
+  border-radius: 0px;
+  background-color: #f7ca88; }
+
+.builderview .btn:focus, .builderview .btn:active:focus, .builderview .btn.active:focus {
+  outline: 0 none; }
+
+.builderview .moveOptions {
+  display: block;
+  transform: scale(0.8);
+  height: 80px;
+  margin-top: -30px !important; }
 
 .graybar {
   width: 100%;
@@ -110,26 +181,13 @@ footer {
   background-color: #474546;
   color: white; }
 
+.breaker {
+  display: block;
+  width: 100%;
+  height: 1px;
+  margin-top: 9px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ececed; }
+
 canvas {
   border: 1px solid black; }
-
-.uploadView {
-  max-height: 200px;
-  max-width: 200px; }
-
-.uploadPreview {
-  max-height: 500px;
-  max-width: 500px; }
-
-.builderThumbnails {
-  display: block;
-  width: 80px; }
-
-.imageBuilderBtn {
-  width: 60px;
-  height: 60px;
-  overflow: hidden;
-  border-radius: 0px;
-  border: 1px solid gray;
-  padding: 0px;
-  background-color: white; }
