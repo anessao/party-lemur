@@ -1,4 +1,4 @@
-app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $scope, $timeout, ImageFactory, InviteFactory, EventFactory) {
+app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $scope, $timeout, ImageFactory, InviteFactory, EventFactory, FileSaver, Blob) {
 	
 	let canvas = document.getElementById("inviteBuilder");
 	let ctx = canvas.getContext('2d');
@@ -21,12 +21,13 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 //**************************
 // IMAGE BUILDER V2
 //**************************
-	let xAxis = 10;
-	let yAxis = 10;
-	let zScale = 0.5;
+	let xAxis = 0;
+	let yAxis = 0;
+	let zScale = 1;
 	let layerCounter = 0;
 	let fontSize = 50;
 	let fontType = "Futura";
+	let fillStyle = "black";
 
 	let myDrawImage = (obj) => {
 	  	let longstring = obj.imageCode;
@@ -46,7 +47,8 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 
 	let writeMyText = (textObj) => {
 		  ctx.font = `${textObj.size}px ${textObj.fontType}`;
-			ctx.fillText(textObj.string, textObj.xAxis, textObj.yAxis);
+		  ctx.fillStyle = textObj.fillStyle;
+		  ctx.fillText(textObj.string, textObj.xAxis, textObj.yAxis);
 	};
 
 	$scope.setImageLayer = (imageObj) => {
@@ -75,7 +77,8 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 			yAxis: 100,
 			size: fontSize,
 			fontType: fontType,
-			layernumber: layerCounter
+			layernumber: layerCounter,
+			fillStyle: fillStyle
 		};
 		$scope.currentLayers.push(newLayer);
 		layerCounter ++;
@@ -86,6 +89,7 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
   			myDrawImage(layerObj);
 			}
 		});
+		$scope.textInput = "";
 	};
 
 	//******************************
@@ -166,6 +170,44 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 		layerReDraw();
 	};
 
+	//Change text
+	$scope.changeLayerText = (layerNum, newTextString) => {
+		for (let a = 0; a < $scope.currentLayers.length; a++){
+			if (layerNum === $scope.currentLayers[a].layernumber) {
+				$scope.currentLayers[a].string = newTextString;
+			}
+		}
+		layerReDraw();
+		newTextString = "";
+	};
+	$scope.setColor = (layerNum, ev) => {
+		for (let a = 0; a < $scope.currentLayers.length; a++){
+			if (layerNum === $scope.currentLayers[a].layernumber) {
+				if (ev.currentTarget.value === "white") {
+					fillStyle = "white";
+					$scope.currentLayers[a].fillStyle = fillStyle;
+				}
+				if (ev.currentTarget.value === "black") {
+					fillStyle = "black";
+					$scope.currentLayers[a].fillStyle = fillStyle;
+				}
+				if (ev.currentTarget.value === "red") {
+					fillStyle = "#a85265";
+					$scope.currentLayers[a].fillStyle = fillStyle;
+				}
+				if (ev.currentTarget.value === "yellow") {
+					fillStyle = "#eead20";
+					$scope.currentLayers[a].fillStyle = fillStyle;
+				}
+				if (ev.currentTarget.value === "blue") {
+					fillStyle = "#3f88c8";
+					$scope.currentLayers[a].fillStyle = fillStyle;
+				}
+			}
+		}
+		layerReDraw();
+	};
+
 	//**************************
 	// FINAL DESIGN CHANGE
 	//**************************
@@ -205,7 +247,6 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
   	EventFactory.postNewEvent($scope.newEvent).then((results) => {
   		thisEventId = results.data.name;
   		$scope.showLayerOptions = true;
-  		// getItems();
   	}).catch((error) => {
   		console.log("Save event error", error);
   	});
@@ -215,5 +256,12 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
   	thisEventId = "noparty";
   	$scope.showLayerOptions = true;
   };
+
+  $scope.btnTest = () => {
+		canvas.toBlob(function(blob) {
+    	saveAs(blob, "invitation image.png");
+		});
+  };
+
 
 });

@@ -164,6 +164,36 @@
   height: 80px;
   margin-top: -30px !important; }
 
+.builderview .swatch-white {
+  background-color: white;
+  border: 2px solid #ececed;
+  width: 30px;
+  height: 30px; }
+
+.builderview .swatch-black {
+  background-color: black;
+  border: 2px solid #ececed;
+  width: 30px;
+  height: 30px; }
+
+.builderview .swatch-red {
+  background-color: #a85265;
+  border: 2px solid #ececed;
+  width: 30px;
+  height: 30px; }
+
+.builderview .swatch-yellow {
+  background-color: #eead20;
+  border: 2px solid #ececed;
+  width: 30px;
+  height: 30px; }
+
+.builderview .swatch-blue {
+  background-color: #3f88c8;
+  border: 2px solid #ececed;
+  width: 30px;
+  height: 30px; }
+
 .graybar {
   width: 100%;
   height: 15px;

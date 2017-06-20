@@ -38,9 +38,9 @@
 			    </div>
 			    <div class="breaker"></div>
 		    </div>
-		    <!-- //////////LAYERS\\\\\\\\\\-->
-		    <div class="col-xs-12 inviteLayerOptions" ng-repeat="layer in currentLayers">
-		    	<h5>Layer {{layer.layernumber + 1}}</h5>
+		    <!-- //////////IMAGE LAYER OPTIONS\\\\\\\\\\-->
+		    <div class="col-xs-12 inviteLayerOptions" ng-repeat="layer in currentLayers | filter:{imageCode:'!!'}">
+		    	<h5>Image Layer</h5>
 		    	<div class="moveOptions col-xs-2 pull-right">
 		    		<div class="row">
 		    			<button class="btn moveBtn-up fa fa-chevron-up col-xs-12" ng-click="shiftLayerUp(layer.layernumber)"></button>
@@ -56,13 +56,51 @@
 		    	
 		    	<button class="btn btn-success" ng-click="scaleLayerUp(layer.layernumber)">Scale + </button>
 		    	<button class="btn btn-success" ng-click="scaleLayerDown(layer.layernumber)">Scale - </button>
-		    	<button class="btn btn-warning" ng-click="deleteLayer(layer.layernumber)">Delete</button>
+		    	<button class="btn btn-danger fa fa-trash-o" ng-click="deleteLayer(layer.layernumber)"></button>
 		    </div>
+		    <!-- //TEXT LAYER OPTIONS-->
+		    <div class="col-xs-12 inviteLayerOptions" ng-repeat="layer in currentLayers | filter:{string:'!!'}">
+		    	<h5>Text Layer</h5>
+		    	<div class="moveOptions col-xs-2 pull-right">
+		    		<div class="row">
+		    			<button class="btn moveBtn-up fa fa-chevron-up col-xs-12" ng-click="shiftLayerUp(layer.layernumber)"></button>
+		    		</div>
+		    		<div class="row">
+		    			<button class="btn moveBtn-left col-xs-6" ng-click="shiftLayerLeft(layer.layernumber)"><span class="fa fa-chevron-left pull-left"></span></button>
+		    			<button class="btn moveBtn-right col-xs-6" ng-click="shiftLayerRight(layer.layernumber)"><span class="fa fa-chevron-right pull-right"></span></button>
+		    		</div>
+		    		<div class="row">
+		    			<button class="btn moveBtn-down fa fa-chevron-down col-xs-12" ng-click="shiftLayerDown(layer.layernumber)"></button>
+		    		</div>
+		    	</div>
+		    	<div class="input-group">
+			    	<input type="text" class="form-control updateTextLayerInput" ng-model="newTextString">
+			    	<span class="input-group-btn">
+			    		<button class="btn btn-info" ng-click="changeLayerText(layer.layernumber, newTextString)">Update Text</button>
+			    	</span>
+			    </div>
+
+			    <div class="breaker"></div>
+
+		    	<button class="btn btn-success" ng-click="scaleLayerUp(layer.layernumber)">Scale + </button>
+		    	<button class="btn btn-success" ng-click="scaleLayerDown(layer.layernumber)">Scale - </button>
+		    	<button class="btn btn-danger fa fa-trash-o" ng-click="deleteLayer(layer.layernumber)"></button>
+		    	<button class="btn swatch-white" value="white" ng-click="setColor(layer.layernumber, $event)"></button>
+		    	<button class="btn swatch-black" value="black" ng-click="setColor(layer.layernumber, $event)"></button>
+		    	<button class="btn swatch-red" value="red" ng-click="setColor(layer.layernumber, $event)"></button>
+		    	<button class="btn swatch-blue" value="blue" ng-click="setColor(layer.layernumber, $event)"></button>
+		    	<button class="btn swatch-yellow" value="yellow" ng-click="setColor(layer.layernumber, $event)"></button>
+		    </div>
+
+
+
 		</div>
 	</div>
 	</div>
 	<div class="container">
 		<canvas id="inviteBuilder" width="360px" height="504px">Oops! Your Browser doesn't support me! [ You can always try chrome ;) ]</canvas>
 	</div>
-	<div class="container"><button class="btn btn-success" ng-click="saveMyDesign()">Save Design</button></div>
+	<div class="container">
+		<button class="btn btn-success" ng-click="saveMyDesign()">Save Design</button>
+		<button class="btn btn-info" ng-click="btnTest()">Test</button>
 	</div>

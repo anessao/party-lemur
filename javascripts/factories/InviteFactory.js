@@ -20,7 +20,8 @@ app.factory("InviteFactory", function($q, $http, $rootScope, FIREBASE_CONFIG) {
 				yAxis: newLayer.yAxis,
 				size: newLayer.size,
 				fontType: newLayer.fontType,
-				layernumber: newLayer.layernumber
+				layernumber: newLayer.layernumber,
+				fillStyle: newLayer.fillStyle
 			};
 		} else {
 			newLayerObj = {
@@ -129,6 +130,7 @@ app.factory("InviteFactory", function($q, $http, $rootScope, FIREBASE_CONFIG) {
 				size: newlayer.size,
 				fontType: newlayer.fontType,
 				layernumber: newlayer.layernumber,
+				fillStyle: newLayer.fillStyle
 			};
 		} else {
 			newLayerObj = {
