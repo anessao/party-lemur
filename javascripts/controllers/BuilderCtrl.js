@@ -110,7 +110,7 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 	$scope.shiftLayerRight = (layerNum) => {
 		for (let a = 0; a < $scope.currentLayers.length; a++){
 			if (layerNum === $scope.currentLayers[a].layernumber) {
-				$scope.currentLayers[a].xAxis = $scope.currentLayers[a].xAxis + 10;
+				$scope.currentLayers[a].xAxis = $scope.currentLayers[a].xAxis + 20;
 			}
 		}
 		layerReDraw();
@@ -118,7 +118,7 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 	$scope.shiftLayerLeft = (layerNum) => {
 		for (let a = 0; a < $scope.currentLayers.length; a++){
 			if (layerNum === $scope.currentLayers[a].layernumber) {
-				$scope.currentLayers[a].xAxis = $scope.currentLayers[a].xAxis - 10;
+				$scope.currentLayers[a].xAxis = $scope.currentLayers[a].xAxis - 20;
 			}
 		}
 		layerReDraw();
@@ -128,7 +128,7 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 		$scope.shiftLayerUp = (layerNum) => {
 		for (let a = 0; a < $scope.currentLayers.length; a++){
 			if (layerNum === $scope.currentLayers[a].layernumber) {
-				$scope.currentLayers[a].yAxis = $scope.currentLayers[a].yAxis - 10;
+				$scope.currentLayers[a].yAxis = $scope.currentLayers[a].yAxis - 20;
 			}
 		}
 		layerReDraw();
@@ -136,7 +136,7 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 	$scope.shiftLayerDown = (layerNum) => {
 		for (let a = 0; a < $scope.currentLayers.length; a++){
 			if (layerNum === $scope.currentLayers[a].layernumber) {
-				$scope.currentLayers[a].yAxis = $scope.currentLayers[a].yAxis + 10;
+				$scope.currentLayers[a].yAxis = $scope.currentLayers[a].yAxis + 20;
 			}
 		}
 		layerReDraw();
@@ -180,6 +180,7 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 		layerReDraw();
 		newTextString = "";
 	};
+
 	$scope.setColor = (layerNum, ev) => {
 		for (let a = 0; a < $scope.currentLayers.length; a++){
 			if (layerNum === $scope.currentLayers[a].layernumber) {
@@ -202,6 +203,20 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 				if (ev.currentTarget.value === "blue") {
 					fillStyle = "#3f88c8";
 					$scope.currentLayers[a].fillStyle = fillStyle;
+				}
+			}
+		}
+		layerReDraw();
+	};
+
+		$scope.fontSize = (layerNum, ev) => {
+		for (let a = 0; a < $scope.currentLayers.length; a++){
+			if (layerNum === $scope.currentLayers[a].layernumber) {
+				if (ev.currentTarget.value === "up") {
+					$scope.currentLayers[a].size = $scope.currentLayers[a].size + 10;
+				}
+				if (ev.currentTarget.value === "down") {
+					$scope.currentLayers[a].size = $scope.currentLayers[a].size - 10;
 				}
 			}
 		}
@@ -243,6 +258,7 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 	// **************************
 
   $scope.saveEvent = () => {
+  	console.log($scope.newEvent);
   	$scope.newEvent.uid = $rootScope.user.uid;
   	EventFactory.postNewEvent($scope.newEvent).then((results) => {
   		thisEventId = results.data.name;
@@ -257,7 +273,7 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
   	$scope.showLayerOptions = true;
   };
 
-  $scope.btnTest = () => {
+  $scope.btnDownload = () => {
 		canvas.toBlob(function(blob) {
     	saveAs(blob, "invitation image.png");
 		});

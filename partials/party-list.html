@@ -1,14 +1,16 @@
 <div class="container">	
-		<div class="row">	
-			<h3>My Parties</h3>
-			<div class="thumbnail col-xs-4" ng-repeat="party in parties">
-				<div class="caption">
-					<h4>{{party.title}}</h4>
-					<p>{{party.date}}</p>
+		<div class="row">
+			<div class="col-xs-4" ng-repeat="party in parties">
+				<div class="panel panel-default">
+								  <div class="panel-heading">{{party.title}}</div>
+			  <div class="panel-body">
+			    <p>{{party.date | date:"MM/dd/yyyy"}}</p>
 					<p>{{party.location}}</p>
-					<a ng-href="#!/partyview/{{party.id}}">View/Edit</a>
+			  </div>
+			  	<div class="panel-footer">
+						<a ng-href="#!/partyview/{{party.id}}">View/Edit</a>
+					</div>
 				</div>
 			</div>
 		</div>
-	</a>
 </div>

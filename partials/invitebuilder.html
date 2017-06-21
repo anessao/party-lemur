@@ -14,7 +14,14 @@
 			    Location:<br>
 			    <input type="text" class="form-control" ng-model="newEvent.location">
 			    Date:<br>
-			    <input type="text" class="form-control" ng-model="newEvent.date"><br>
+			    <span class="input-group">
+			    	<input type="date" class="form-control" uib-datepicker-popup ng-model="newEvent.date" is-open="isOpened2" min-date="minDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close"/>
+			    	<span class="input-group-btn">
+            	<button type="button" class="btn btn-default" ng-click="isOpened2 = !isOpened2">
+            		<i class="glyphicon glyphicon-calendar"></i>
+            	</button>
+            </span>
+			    </span><br>
 			    <button class="btn btn-success" ng-click="saveEvent()">Save Event</button>
 			    <button class="btn btn-success" ng-click="noEvent()">No Event</button>
 		    </div>
@@ -54,8 +61,8 @@
 		    		</div>
 		    	</div>
 		    	
-		    	<button class="btn btn-success" ng-click="scaleLayerUp(layer.layernumber)">Scale + </button>
-		    	<button class="btn btn-success" ng-click="scaleLayerDown(layer.layernumber)">Scale - </button>
+		    	<button class="btn btn-success fa fa-plus" ng-click="scaleLayerUp(layer.layernumber)"></button>
+		    	<button class="btn btn-success fa fa-minus" ng-click="scaleLayerDown(layer.layernumber)"></button>
 		    	<button class="btn btn-danger fa fa-trash-o" ng-click="deleteLayer(layer.layernumber)"></button>
 		    </div>
 		    <!-- //TEXT LAYER OPTIONS-->
@@ -82,8 +89,8 @@
 
 			    <div class="breaker"></div>
 
-		    	<button class="btn btn-success" ng-click="scaleLayerUp(layer.layernumber)">Scale + </button>
-		    	<button class="btn btn-success" ng-click="scaleLayerDown(layer.layernumber)">Scale - </button>
+		    	<button class="btn btn-success fa fa-plus" value="up" ng-click="fontSize(layer.layernumber, $event)"></button>
+		    	<button class="btn btn-success fa fa-minus" value="down" ng-click="fontSize(layer.layernumber, $event)"></button>
 		    	<button class="btn btn-danger fa fa-trash-o" ng-click="deleteLayer(layer.layernumber)"></button>
 		    	<button class="btn swatch-white" value="white" ng-click="setColor(layer.layernumber, $event)"></button>
 		    	<button class="btn swatch-black" value="black" ng-click="setColor(layer.layernumber, $event)"></button>
@@ -91,16 +98,15 @@
 		    	<button class="btn swatch-blue" value="blue" ng-click="setColor(layer.layernumber, $event)"></button>
 		    	<button class="btn swatch-yellow" value="yellow" ng-click="setColor(layer.layernumber, $event)"></button>
 		    </div>
-
-
-
 		</div>
+				<div class="panel-footer" ng-show="showLayerOptions">
+		    	<div class="container">
+						<button class="btn btn-success" ng-click="saveMyDesign()">Save Design</button>
+						<button class="btn btn-info" ng-click="btnDownload()">Download My Invite</button>
+					</div>
+		    </div>
 	</div>
 	</div>
 	<div class="container">
-		<canvas id="inviteBuilder" width="360px" height="504px">Oops! Your Browser doesn't support me! [ You can always try chrome ;) ]</canvas>
-	</div>
-	<div class="container">
-		<button class="btn btn-success" ng-click="saveMyDesign()">Save Design</button>
-		<button class="btn btn-info" ng-click="btnTest()">Test</button>
+		<canvas id="inviteBuilder" width="1500px" height="2100px">Oops! Your Browser doesn't support me! [ You can always try chrome ;) ]</canvas>
 	</div>
