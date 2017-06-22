@@ -1,14 +1,14 @@
-<h3>My Invites</h3>
-
 <div class="container">
+	<h4>My Invites</h4>
 	<div class="row">	
-		<h4>Invites</h4>
-		<div class="thumbnail col-xs-4" ng-repeat="invite in invites">
-			<img src="{{invite.base64code}}">
-			<div class="caption">
-				<!-- <p ng-repeat="party in parties | filter:filterParties">{{party.title}}</p> -->
-				<button class="btn btn-danger fa fa-trash-o" ng-click="inviteDelete(invite.id)"></button>
-				<button class="btn btn-info fa fa-pencil-square-o" ng-click="editInvite(invite.id)"></button>
+		<div class="col-xs-4" ng-repeat="invite in invites">
+			<div class="thumbnail">
+				<img src="{{invite.base64code}}">
+				<div class="caption">
+					<!-- <p ng-repeat="party in parties | filter:filterParties">{{party.title}}</p> -->
+					<button class="btn btn-danger fa fa-trash-o" ng-click="inviteDelete(invite.id)"></button>
+					<button class="btn btn-info fa fa-pencil-square-o" ng-click="editInvite(invite.id)"></button>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -1,14 +1,37 @@
-<div class="container">	
+<div class="container partyListView">	
 		<div class="row">
-			<div class="col-xs-4" ng-repeat="party in parties">
+			<div class="col-xs-4" ng-repeat="party in parties | orderBy: 'date'">
 				<div class="panel panel-default">
 								  <div class="panel-heading">{{party.title}}</div>
 			  <div class="panel-body">
-			    <p>{{party.date | date:"MM/dd/yyyy"}}</p>
+			    <p>{{party.date | date:"MMM d, y"}}</p>
 					<p>{{party.location}}</p>
 			  </div>
 			  	<div class="panel-footer">
 						<a ng-href="#!/partyview/{{party.id}}">View/Edit</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-4">
+				<div class="panel panel-default">
+								  <div class="panel-heading">Add a new party</div>
+			  <div class="panel-body">
+			  	Title:<br>
+			    <input type="text" class="form-control" ng-model="newEvent.title">
+			    Location:<br>
+			    <input type="text" class="form-control" ng-model="newEvent.location">
+			    Date:<br>
+			    <span class="input-group">
+			    	<input type="date" class="form-control" uib-datepicker-popup ng-model="newEvent.date" is-open="isOpened2" min-date="minDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close"/>
+			    	<span class="input-group-btn">
+            	<button type="button" class="btn btn-default" ng-click="isOpened2 = !isOpened2">
+            		<i class="glyphicon glyphicon-calendar"></i>
+            	</button>
+            </span>
+			    </span>
+			  </div>
+			  	<div class="panel-footer">
+						<button class="btn btn-success" ng-click="addEvent()">Submit New Party</button>
 					</div>
 				</div>
 			</div>

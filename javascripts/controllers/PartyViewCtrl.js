@@ -71,5 +71,9 @@ app.controller("PartyViewCtrl", function($location, $rootScope, $routeParams, $s
   	$location.url(`/editor/${inviteId}`);
   };
 
+  $scope.goToBuilder = () => {
+    $location.url(`/invitebuilder`);
+  };
+
   //end controller
 });
