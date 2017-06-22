@@ -1,4 +1,4 @@
-app.controller("BuilderEditorCtrl", function($location, $rootScope, $routeParams, $scope, $timeout, ImageFactory, InviteFactory, EventFactory) {
+app.controller("BuilderEditorCtrl", function($location, $rootScope, $routeParams, $scope, $timeout, ImageFactory, InviteFactory, EventFactory, FileSaver, Blob) {
 	
 	let canvas = document.getElementById("inviteBuilder");
 	let ctx = canvas.getContext('2d');
@@ -292,5 +292,11 @@ app.controller("BuilderEditorCtrl", function($location, $rootScope, $routeParams
   		console.log("Edit invite from controller failed", error);
   	});
 	};
+
+	$scope.btnDownload = () => {
+		canvas.toBlob(function(blob) {
+    	saveAs(blob, "invitation image.png");
+		});
+  };
 
 });

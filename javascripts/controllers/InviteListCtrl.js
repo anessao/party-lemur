@@ -6,7 +6,6 @@ app.controller("InviteListCtrl", function($location, $rootScope, $routeParams, $
 	let getImages = () => {
 	  InviteFactory.getUserInvites($rootScope.user.uid).then((userInvites) => {
 	    $scope.invites = userInvites;
-	    console.log($scope.invites);
 	  }).catch((error) => {
 	    console.log("get error", error);
 	  });
@@ -18,7 +17,6 @@ app.controller("InviteListCtrl", function($location, $rootScope, $routeParams, $
   $scope.inviteDelete = (inviteId) => {
   	InviteFactory.deleteInvite(inviteId).then(() => {
   		getImages();
-  		console.log("delete working");
   	}).catch((error) => {
   		console.log("delete invite error", error);
   	});

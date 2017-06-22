@@ -11,7 +11,6 @@ app.factory("InviteFactory", function($q, $http, $rootScope, FIREBASE_CONFIG) {
 	};
 
 	let createlayerObj = (newLayer) => {
-		console.log(newLayer);
 		if (newLayer.string !== undefined){
 			newLayerObj = {
 				inviteid: newLayer.inviteid,

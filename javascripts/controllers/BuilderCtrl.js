@@ -258,7 +258,6 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 	// **************************
 
   $scope.saveEvent = () => {
-  	console.log($scope.newEvent);
   	$scope.newEvent.uid = $rootScope.user.uid;
   	EventFactory.postNewEvent($scope.newEvent).then((results) => {
   		thisEventId = results.data.name;
