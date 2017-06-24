@@ -1,0 +1,18 @@
+.authview {
+	.form-control {
+		border: 1px solid $darkgreen;
+		border-radius: 0px;
+	}
+	.btn-success {
+		background-color: $lightblue;
+		border-radius: 0px;
+		border: none;
+		width: 47%;
+	}
+	.btn-primary {
+		background-color: $yellow;
+		border-radius: 0px;
+		border: none;
+		width: 47%;
+	}
+}

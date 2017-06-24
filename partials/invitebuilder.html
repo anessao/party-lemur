@@ -1,14 +1,12 @@
-<div class="container">
+<div class="container builderview">
 	<div class="col-xs-6">
 		<div class="panel panel-default">
 		  <div class="panel-heading">
-		    <h3 class="panel-title">Layer Control</h3>
+		    <h3 class="panel-title">Party Designer</h3>
 		  </div>
 		  <div class="panel-body">
-		    <!-- <div class="row" ng-repeat="layer in layers">
-				
-		    	
-		    </div> -->
+
+		  <!-- //////////EVENT SETTING OPTIONS\\\\\\\\\\-->
 		    <div ng-show="!showLayerOptions">
 		    	<h4>Create an Event:</h4><br>
 			    Title:<br>
@@ -16,35 +14,99 @@
 			    Location:<br>
 			    <input type="text" class="form-control" ng-model="newEvent.location">
 			    Date:<br>
-			    <input type="text" class="form-control" ng-model="newEvent.date">
+			    <span class="input-group">
+			    	<input type="date" class="form-control" uib-datepicker-popup ng-model="newEvent.date" is-open="isOpened2" min-date="minDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close"/>
+			    	<span class="input-group-btn">
+            	<button type="button" class="btn btn-default" ng-click="isOpened2 = !isOpened2">
+            		<i class="glyphicon glyphicon-calendar"></i>
+            	</button>
+            </span>
+			    </span><br>
 			    <button class="btn btn-success" ng-click="saveEvent()">Save Event</button>
+			    <button class="btn btn-success" ng-click="noEvent()">No Event</button>
 		    </div>
+		    <!-- //////////LAYER OPTIONS\\\\\\\\\\-->
 		    <div ng-show="showLayerOptions">
-		    	<h4>Create Your Layer:</h4><br>
-				    <div ng-repeat="image in images">
-				    	<div class="col-xs-2">
+		    	<h4>Create Your Layer:</h4>
+		    	<div class="row">
+		    		 <div ng-repeat="image in images">
+				    	<div class=" builderSwatch col-xs-2">
 				    		<button class="btn imageBuilderBtn" ng-click="setImageLayer(image)">
 				    			<img class="builderThumbnails" src="data:{{image.filetype}};base64,{{image.base64code}}">
 				    		</button>
 				    	</div>
 				    </div>
-				    <input type="text" class="form-control" ng-model="textInput">
-				    <button class="btn btn-info" ng-click="createTextLayer(textInput)">Submit Text</button>
-		    </div><br>
-		    <div class="col-xs-12" ng-repeat="layer in currentLayers">
-		    	<h5>Layer {{layer.layernumber}}</h5>
-		    	<button class="btn btn-success" ng-click="shiftLayerRight(layer.layernumber)">Right</button>
-		    	<button class="btn btn-success" ng-click="shiftLayerLeft(layer.layernumber)">Left</button>
-		    	<button class="btn btn-success" ng-click="shiftLayerUp(layer.layernumber)">Up</button>
-		    	<button class="btn btn-success" ng-click="shiftLayerDown(layer.layernumber)">Down</button>
-		    	<button class="btn btn-success" ng-click="scaleLayerUp(layer.layernumber)">Scale + </button>
-		    	<button class="btn btn-success" ng-click="scaleLayerDown(layer.layernumber)">Scale - </button>
-		    	<button class="btn btn-warning" ng-click="deleteLayer(layer.layernumber)">Delete</button>
+		    	</div>
+			    <div class="input-group">
+			    	<input type="text" class="form-control textLayerInput" ng-model="textInput">
+			    	<span class="input-group-btn">
+			    		<button class="btn btn-info" ng-click="createTextLayer(textInput)">Create Text Layer</button>
+			    	</span>
+			    </div>
+			    <div class="breaker"></div>
+		    </div>
+		    <!-- //////////IMAGE LAYER OPTIONS\\\\\\\\\\-->
+		    <div class="col-xs-12 inviteLayerOptions" ng-repeat="layer in currentLayers | filter:{imageCode:'!!'}">
+		    	<h5>Image Layer</h5>
+		    	<div class="moveOptions col-xs-2 pull-right">
+		    		<div class="row">
+		    			<button class="btn moveBtn-up fa fa-chevron-up col-xs-12" ng-click="shiftLayerUp(layer.layernumber)"></button>
+		    		</div>
+		    		<div class="row">
+		    			<button class="btn moveBtn-left col-xs-6" ng-click="shiftLayerLeft(layer.layernumber)"><span class="fa fa-chevron-left pull-left"></span></button>
+		    			<button class="btn moveBtn-right col-xs-6" ng-click="shiftLayerRight(layer.layernumber)"><span class="fa fa-chevron-right pull-right"></span></button>
+		    		</div>
+		    		<div class="row">
+		    			<button class="btn moveBtn-down fa fa-chevron-down col-xs-12" ng-click="shiftLayerDown(layer.layernumber)"></button>
+		    		</div>
+		    	</div>
+		    	
+		    	<button class="btn btn-success fa fa-plus" ng-click="scaleLayerUp(layer.layernumber)"></button>
+		    	<button class="btn btn-success fa fa-minus" ng-click="scaleLayerDown(layer.layernumber)"></button>
+		    	<button class="btn btn-danger fa fa-trash-o" ng-click="deleteLayer(layer.layernumber)"></button>
+		    </div>
+		    <!-- //TEXT LAYER OPTIONS-->
+		    <div class="col-xs-12 inviteLayerOptions" ng-repeat="layer in currentLayers | filter:{string:'!!'}">
+		    	<h5>Text Layer</h5>
+		    	<div class="moveOptions col-xs-2 pull-right">
+		    		<div class="row">
+		    			<button class="btn moveBtn-up fa fa-chevron-up col-xs-12" ng-click="shiftLayerUp(layer.layernumber)"></button>
+		    		</div>
+		    		<div class="row">
+		    			<button class="btn moveBtn-left col-xs-6" ng-click="shiftLayerLeft(layer.layernumber)"><span class="fa fa-chevron-left pull-left"></span></button>
+		    			<button class="btn moveBtn-right col-xs-6" ng-click="shiftLayerRight(layer.layernumber)"><span class="fa fa-chevron-right pull-right"></span></button>
+		    		</div>
+		    		<div class="row">
+		    			<button class="btn moveBtn-down fa fa-chevron-down col-xs-12" ng-click="shiftLayerDown(layer.layernumber)"></button>
+		    		</div>
+		    	</div>
+		    	<div class="input-group">
+			    	<input type="text" class="form-control updateTextLayerInput" ng-model="newTextString">
+			    	<span class="input-group-btn">
+			    		<button class="btn btn-info" ng-click="changeLayerText(layer.layernumber, newTextString)">Update Text</button>
+			    	</span>
+			    </div>
+
+			    <div class="breaker"></div>
+
+		    	<button class="btn btn-success fa fa-plus" value="up" ng-click="fontSize(layer.layernumber, $event)"></button>
+		    	<button class="btn btn-success fa fa-minus" value="down" ng-click="fontSize(layer.layernumber, $event)"></button>
+		    	<button class="btn btn-danger fa fa-trash-o" ng-click="deleteLayer(layer.layernumber)"></button>
+		    	<button class="btn swatch-white" value="white" ng-click="setColor(layer.layernumber, $event)"></button>
+		    	<button class="btn swatch-black" value="black" ng-click="setColor(layer.layernumber, $event)"></button>
+		    	<button class="btn swatch-red" value="red" ng-click="setColor(layer.layernumber, $event)"></button>
+		    	<button class="btn swatch-blue" value="blue" ng-click="setColor(layer.layernumber, $event)"></button>
+		    	<button class="btn swatch-yellow" value="yellow" ng-click="setColor(layer.layernumber, $event)"></button>
 		    </div>
 		</div>
+				<div class="panel-footer" ng-show="showLayerOptions">
+		    	<div class="container">
+						<button class="btn btn-success" ng-click="saveMyDesign()">Save Design</button>
+						<button class="btn btn-info" ng-click="btnDownload()">Download My Invite</button>
+					</div>
+		    </div>
 	</div>
 	</div>
 	<div class="container">
-		<canvas id="inviteBuilder" width="360px" height="504px">Oops! Your Browser doesn't support me! [ You can always try chrome ;) ]</canvas>
+		<canvas id="inviteBuilder" width="1500px" height="2100px">Oops! Your Browser doesn't support me! [ You can always try chrome ;) ]</canvas>
 	</div>
-	<div class="container"><button class="btn btn-success" ng-click="saveMyDesign()">Save Design</button></div>

@@ -1,0 +1,113 @@
+@import "colors";
+@import "fonts";
+
+.builderview {
+	.panel-default {
+		border-radius: 0px;
+		border: 1px solid $darkpink;
+	}
+
+	.builderThumbnails {
+		display: block;
+		width: 80px;
+	}
+
+	.inviteLayerOptions {
+		background-color: #f9f9f9;
+		padding-bottom: 10px;
+		border-bottom: 2px solid white;
+	}
+	.imageBuilderBtn {
+		width: 60px;
+		height: 60px;
+		overflow: hidden;
+		border-radius: 0px;
+		border: 2px solid $lightgray;
+		padding: 0px;
+		background-color: white;
+	}
+	.panel-heading {
+		background-color: $darkpink;
+		border-radius: 0px;
+	}
+	.builderSwatch {
+		margin-bottom: 10px;
+	}
+	.panel-title {
+		font-family: $script;
+		font-size: 2rem;
+		color: white;
+	}
+	.btn-info {
+		border-radius: 0px;
+		background-color: $lightblue;
+		border: 1px solid $lightblue;
+	}
+	.textLayerInput {
+		border-radius: 0px;
+		border: 1px solid $lightblue;
+	}
+
+	.moveBtn-up {
+		border-top-left-radius: 200px;
+		border-top-right-radius: 200px;
+		border-bottom-radius: 0px;
+		background-color: $yellow;
+	}
+	.moveBtn-down {
+		border-bottom-left-radius: 200px;
+		border-bottom-right-radius: 200px;
+		background-color: $yellow;
+	}
+	.moveBtn-right {
+		border-radius: 0px;
+		background-color: $lightyellow;
+	}
+	.moveBtn-left {
+		border-radius: 0px;
+		background-color: $lightyellow;
+	}
+	.btn:focus, .btn:active:focus, .btn.active:focus {
+	    outline: 0 none;
+	}
+	.moveOptions {
+		display: block;
+		transform: scale(0.8);
+		height: 80px;
+		margin-top: -30px !important;
+	}
+	.swatch-white {
+		background-color: white;
+		border: 2px solid $lightgray;
+		width: 30px;
+		height: 30px;
+	}
+	.swatch-black {
+		background-color: black;
+		border: 2px solid $lightgray;
+		width: 30px;
+		height: 30px;
+	}
+	.swatch-red {
+		background-color: $darkpink;
+		border: 2px solid $lightgray;
+		width: 30px;
+		height: 30px;
+	}
+	.swatch-yellow {
+		background-color: $yellow;
+		border: 2px solid $lightgray;
+		width: 30px;
+		height: 30px;
+	}
+	.swatch-blue {
+		background-color: $lightblue;
+		border: 2px solid $lightgray;
+		width: 30px;
+		height: 30px;
+	}
+	canvas {
+		box-shadow: 0px 0px 5px #d9d9d9;
+		width: 40%;
+	}
+}

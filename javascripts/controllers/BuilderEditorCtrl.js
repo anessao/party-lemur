@@ -1,4 +1,4 @@
-app.controller("BuilderEditorCtrl", function($location, $rootScope, $routeParams, $scope, $timeout, ImageFactory, InviteFactory, EventFactory) {
+app.controller("BuilderEditorCtrl", function($location, $rootScope, $routeParams, $scope, $timeout, ImageFactory, InviteFactory, EventFactory, FileSaver, Blob) {
 	
 	let canvas = document.getElementById("inviteBuilder");
 	let ctx = canvas.getContext('2d');
@@ -44,6 +44,7 @@ app.controller("BuilderEditorCtrl", function($location, $rootScope, $routeParams
 	let zScale = 0.5;
 	let fontSize = 50;
 	let fontType = "Futura";
+	let fillStyle = "black";
 
 	let myDrawImage = (obj) => {
 	  	let longstring = obj.imageCode;
@@ -63,11 +64,17 @@ app.controller("BuilderEditorCtrl", function($location, $rootScope, $routeParams
 
 	let writeMyText = (textObj) => {
 		  ctx.font = `${textObj.size}px ${textObj.fontType}`;
+		  ctx.fillStyle = textObj.fillStyle;
 			ctx.fillText(textObj.string, textObj.xAxis, textObj.yAxis);
 	};
 
 	$scope.setImageLayer = (imageObj) => {
-		let layerCounter = $scope.currentLayers[$scope.currentLayers.length - 1].layernumber + 1;
+		if ($scope.currentLayers.length === undefined || $scope.currentLayers.length === 0) {
+			console.log("passing if");
+			layerCounter = 0;
+		} else {
+			layerCounter = $scope.currentLayers[$scope.currentLayers.length - 1].layernumber + 1;
+		}
 		newLayer = {
 			imageCode:`data:${imageObj.filetype};base64,${imageObj.base64code}`,
 			xAxis: xAxis,
@@ -87,14 +94,19 @@ app.controller("BuilderEditorCtrl", function($location, $rootScope, $routeParams
 	};
 
 	$scope.createTextLayer = (textString) => {
-		let layerCounter = $scope.currentLayers[$scope.currentLayers.length - 1].layernumber + 1;
+		if ($scope.currentLayers.length === undefined || $scope.currentLayers.length === 0) {
+			layerCounter = 0;
+		} else {
+			layerCounter = $scope.currentLayers[$scope.currentLayers.length - 1].layernumber + 1;
+		}
 		let newLayer = {
 			string: textString,
 			xAxis: 100,
 			yAxis: 100,
 			size: fontSize,
 			fontType: fontType,
-			layernumber: layerCounter
+			layernumber: layerCounter,
+			fillStyle: fillStyle
 		};
 		$scope.currentLayers.push(newLayer);
 		layerCounter ++;
@@ -105,6 +117,7 @@ app.controller("BuilderEditorCtrl", function($location, $rootScope, $routeParams
   			myDrawImage(layerObj);
 			}
 		});
+		$scope.textInput = "";
 	};
 
 	//******************************
@@ -185,6 +198,59 @@ app.controller("BuilderEditorCtrl", function($location, $rootScope, $routeParams
 		layerReDraw();
 	};
 
+		//Change text
+	$scope.changeLayerText = (layerNum, newTextString) => {
+		for (let a = 0; a < $scope.currentLayers.length; a++){
+			if (layerNum === $scope.currentLayers[a].layernumber) {
+				$scope.currentLayers[a].string = newTextString;
+			}
+		}
+		layerReDraw();
+		newTextString = "";
+	};
+
+	$scope.setColor = (layerNum, ev) => {
+		for (let a = 0; a < $scope.currentLayers.length; a++){
+			if (layerNum === $scope.currentLayers[a].layernumber) {
+				if (ev.currentTarget.value === "white") {
+					fillStyle = "white";
+					$scope.currentLayers[a].fillStyle = fillStyle;
+				}
+				if (ev.currentTarget.value === "black") {
+					fillStyle = "black";
+					$scope.currentLayers[a].fillStyle = fillStyle;
+				}
+				if (ev.currentTarget.value === "red") {
+					fillStyle = "#a85265";
+					$scope.currentLayers[a].fillStyle = fillStyle;
+				}
+				if (ev.currentTarget.value === "yellow") {
+					fillStyle = "#eead20";
+					$scope.currentLayers[a].fillStyle = fillStyle;
+				}
+				if (ev.currentTarget.value === "blue") {
+					fillStyle = "#3f88c8";
+					$scope.currentLayers[a].fillStyle = fillStyle;
+				}
+			}
+		}
+		layerReDraw();
+	};
+
+		$scope.fontSize = (layerNum, ev) => {
+		for (let a = 0; a < $scope.currentLayers.length; a++){
+			if (layerNum === $scope.currentLayers[a].layernumber) {
+				if (ev.currentTarget.value === "up") {
+					$scope.currentLayers[a].size = $scope.currentLayers[a].size + 10;
+				}
+				if (ev.currentTarget.value === "down") {
+					$scope.currentLayers[a].size = $scope.currentLayers[a].size - 10;
+				}
+			}
+		}
+		layerReDraw();
+	};
+
 	//**************************
 	// USER DESIGN SAVES
 	//**************************
@@ -226,5 +292,11 @@ app.controller("BuilderEditorCtrl", function($location, $rootScope, $routeParams
   		console.log("Edit invite from controller failed", error);
   	});
 	};
+
+	$scope.btnDownload = () => {
+		canvas.toBlob(function(blob) {
+    	saveAs(blob, "invitation image.png");
+		});
+  };
 
 });

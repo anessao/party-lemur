@@ -1,36 +1,45 @@
-<div class="container">
+<div class="container uploadListView">
 
-	<div class="row">	
-		<h4>Artworks</h4>
-		<div class="thumbnail col-xs-4" ng-repeat="image in images | filter:{category:'art'}">
-			<img class="uploadView" src="data:{{image.filetype}};base64,{{image.base64code}}">
-			<div class="caption">
-				<button class="btn btn-danger fa fa-trash-o" ng-click="deleteUpload(image.id)"></button>
-				<button class="btn btn-info fa fa-pencil-square-o" ng-click="editUpload(image.id)"></button>
-			</div>
-		</div>
+	<div class="row">
+	<h4>Artwork</h4>
+	  <div class="col-xs-3" ng-repeat="image in images | filter:{category:'art'}">
+	    <div class="thumbnail">
+	      <img class="uploadView" src="data:{{image.filetype}};base64,{{image.base64code}}">
+	      <div class="caption">
+	        <h5>{{image.filename}}</h5>
+	        <button class="btn btn-danger fa fa-trash-o" ng-click="deleteUpload(image.id)"></button>
+					<button class="btn btn-info fa fa-pencil-square-o" ng-click="editUpload(image.id)"></button>
+	      </div>
+	    </div>
+	  </div>
 	</div>
 
-	<div class="row">	
-		<h4>Patterns</h4>
-		<div class="thumbnail col-xs-4" ng-repeat="image in images | filter:{category:'pattern'}">
-			<img class="uploadView" src="data:{{image.filetype}};base64,{{image.base64code}}">
-			<div class="caption">
-				<button class="btn btn-danger fa fa-trash-o" ng-click="deleteUpload(image.id)"></button>
+	<div class="row">
+	<h4>Patterns</h4>
+	  <div class="col-xs-3" ng-repeat="image in images | filter:{category:'pattern'}">
+	    <div class="thumbnail">
+	      <img class="uploadView" src="data:{{image.filetype}};base64,{{image.base64code}}">
+	      <div class="caption">
+	        <h5>{{image.filename}}</h5>
+	        <button class="btn btn-danger fa fa-trash-o" ng-click="deleteUpload(image.id)"></button>
 				<button class="btn btn-info fa fa-pencil-square-o" ng-click="editUpload(image.id)"></button>
-			</div>
-		</div>
+	      </div>
+	    </div>
+	  </div>
 	</div>
 
-	<div class="row">	
-		<h4>Photographs</h4>
-		<div class="thumbnail col-xs-4" ng-repeat="image in images | filter:{category:'photograph'}">
-			<img class="uploadView" src="data:{{image.filetype}};base64,{{image.base64code}}">
-			<div class="caption">
-				<button class="btn btn-danger fa fa-trash-o" ng-click="deleteUpload(image.id)"></button>
-				<button class="btn btn-info fa fa-pencil-square-o" ng-click="editUpload(image.id)"></button>
-			</div>
-		</div>
+	<div class="row">
+	<h4>Photographs</h4>
+	  <div class="col-xs-3" ng-repeat="image in images | filter:{category:'photograph'}">
+	    <div class="thumbnail">
+	      <img class="uploadView" src="data:{{image.filetype}};base64,{{image.base64code}}">
+	      <div class="caption">
+	        <h5>{{image.filename}}</h5>
+	        <button class="btn btn-danger fa fa-trash-o" ng-click="deleteUpload(image.id)"></button>
+					<button class="btn btn-info fa fa-pencil-square-o" ng-click="editUpload(image.id)"></button>
+	      </div>
+	    </div>
+	  </div>
 	</div>
 
 <div class="row">

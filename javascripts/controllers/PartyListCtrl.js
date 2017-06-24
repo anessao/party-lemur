@@ -11,4 +11,14 @@ app.controller("PartyListCtrl", function($location, $rootScope, $routeParams, $s
 
 	getItems();
 
+	$scope.addEvent = () => {
+		$scope.newEvent.uid = $rootScope.user.uid;
+		  	EventFactory.postNewEvent($scope.newEvent).then((results) => {
+		  		getItems();
+		  		$scope.newEvent = {};
+		  	}).catch((error) => {
+		  		console.log("Save event error", error);
+	  	});
+	};
+
 });

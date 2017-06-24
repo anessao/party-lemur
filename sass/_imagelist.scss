@@ -1,0 +1,21 @@
+@import "colors";
+@import "fonts";
+
+.uploadListView {
+	img {
+		display: block;
+		margin: 0 auto;
+	}
+	.thumbnail {
+		height: 300px;
+		overflow: scroll;
+		border-radius: 0px;
+		img	{
+			min-height: 190px;
+			max-height: 190px;
+		}
+	}
+
+}
+
+
