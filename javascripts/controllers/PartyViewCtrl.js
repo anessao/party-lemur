@@ -1,8 +1,6 @@
 app.controller("PartyViewCtrl", function($location, $rootScope, $routeParams, $scope, EventFactory, InviteFactory) {
 	$scope.selectedParty = {};
 	$scope.partyDesigns = [];
-	$scope.partyEditInfo = false;
-
   $scope.editPartyShow = () => {
   	$scope.partyEditInfo = true;
   };
@@ -30,7 +28,7 @@ app.controller("PartyViewCtrl", function($location, $rootScope, $routeParams, $s
   //********************
   //CRUD functionality
   //********************
-  $scope.editPartyObj = {};
+  // $scope.editPartyObj = {};
 
   $scope.deleteParty = (partyid) => {
   	EventFactory.deleteSelectedEvent($routeParams.partyid).then((results) => {
@@ -57,11 +55,11 @@ app.controller("PartyViewCtrl", function($location, $rootScope, $routeParams, $s
   };
 
   $scope.submitPartyEdit = (partyId) => {
-  	$scope.editPartyObj.uid = $rootScope.user.uid;
-  	$scope.editPartyObj.id = partyId;
-  	EventFactory.editParty($scope.editPartyObj).then(() => {
+  	$scope.selectedParty.uid = $rootScope.user.uid;
+  	$scope.selectedParty.id = partyId;
+    $scope.selectedParty.date = $scope.editPartyDate;
+  	EventFactory.editParty($scope.selectedParty).then(() => {
   		getParty();
-  		$scope.partyEditInfo = false;
   	}).catch((error) => {
   		console.log("edit item error", error);
   	});

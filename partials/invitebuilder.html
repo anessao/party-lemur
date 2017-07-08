@@ -8,6 +8,10 @@
 
 		  <!-- //////////EVENT SETTING OPTIONS\\\\\\\\\\-->
 		    <div ng-show="!showLayerOptions">
+		    	<h4>Pick from your party list:</h4>
+		    	<select class="form-control" ng-model="eventValue" ng-change="selectEvent()">
+		    		<option ng-repeat="event in events" value="{{event.id}}">{{event.title}}</option>
+		    	</select>
 		    	<h4>Create an Event:</h4><br>
 			    Title:<br>
 			    <input type="text" class="form-control" ng-model="newEvent.title">
