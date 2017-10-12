@@ -3,6 +3,7 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 	let canvas = document.getElementById("inviteBuilder");
 	let ctx = canvas.getContext('2d');
 
+	$scope.events = [];
 	$scope.images = [];
 	$scope.textInput = "";
 	$scope.newEvent = {};
@@ -18,6 +19,20 @@ app.controller("BuilderCtrl", function($location, $rootScope, $routeParams, $sco
 	  });
 	};
 	getItems();
+
+	let getAllEvents = () => {
+		EventFactory.getPartyList($rootScope.user.uid).then((partyItems) => {
+			$scope.events = partyItems;
+		}).catch((error) => {
+			console.log("get events error", error);
+		});
+	};
+	getAllEvents();
+
+	$scope.selectEvent = () => {
+		thisEventId = $scope.eventValue;
+		$scope.showLayerOptions = true;
+	};
 //**************************
 // IMAGE BUILDER V2
 //**************************

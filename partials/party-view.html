@@ -1,24 +1,42 @@
-<div class="container">	
-	<div class="row">	
-		<h3>{{selectedParty.title}}</h3>
-		<p>{{selectedParty.date}}</p>
-		<p>{{selectedParty.location}}</p>
-		<button class="btn btn-danger fa fa-trash-o" ng-click="deleteParty(selectedParty.id)"></button><br>
-		<button class="btn btn-info fa fa-pencil-square-o" ng-click="editPartyShow()"></button>
+<div class="container partyView">	
+	<div class="jumbotron">
+	  <h1>{{selectedParty.title}}</h1>
+	  <p>{{selectedParty.location}}</p>
+	  <p>{{selectedParty.date | date:"MMM d, y"}}</p>
+	  <p><button class="btn btn-danger fa fa-trash-o" ng-click="deleteParty(selectedParty.id)"></button><br>
+		</p>
 	</div>
-	<div class="row" ng-show="partyEditInfo">
-		<p>New Event Title:</p>
-		<input type="text" class="form-control col-xs-4" ng-model="editPartyObj.title">
-		<p>New Location:</p>
-		<input type="text" class="form-control col-xs-4" ng-model="editPartyObj.location">
-		<p>New Date:</p>
-		<input type="text" class="form-control col-xs-4" ng-model="editPartyObj.date">
-		<button class="btn btn-warning" ng-click="submitPartyEdit(selectedParty.id)">Submit Edit</button>
+	<div class="col-xs-6 pull-right">
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Event Details</h3>
+		  </div>
+		  <div class="panel-body">
+		    <p>Update Event Title:</p>
+				<input type="text" class="form-control col-xs-4" ng-model="selectedParty.title">
+				<p>Update Location:</p>
+				<input type="text" class="form-control col-xs-4" ng-model="selectedParty.location">
+				<p>Update Date:</p>
+					<span class="input-group">
+			    	<input type="date" class="form-control" uib-datepicker-popup ng-model="editPartyDate" is-open="isOpened2" min-date="minDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close"/>
+			    	<span class="input-group-btn">
+            	<button type="button" class="btn btn-default" ng-click="isOpened2 = !isOpened2">
+            		<i class="glyphicon glyphicon-calendar"></i>
+            	</button>
+            </span>
+			    </span>
+			</div>
+			<div class="panel-footer">
+				<p>
+					<button class="btn btn-warning" ng-click="submitPartyEdit(selectedParty.id)">Submit Edit</button>
+				</p>
+			</div>
+		</div>
 	</div>
-	<div class="row" ng-show="partyDesigns.length">
-		<div class="thumbnail col-xs-4" ng-repeat="partyinvite in partyDesigns">
+	<div class="container" ng-show="partyDesigns.length">
+		<div class="thumbnail col-xs-3" ng-repeat="partyinvite in partyDesigns">
 			<img src="{{partyinvite.base64code}}">
-			<button class="btn btn-info fa fa-pencil-square-o" ng-click="editInvite(partyinvite.id)"></button>
+			<button class="btn btn-info fa fa-pencil-square-o editBtn" ng-click="editInvite(partyinvite.id)"></button>
 		</div>
 	</div>
 	<div class="row" ng-show="!partyDesigns.length">
