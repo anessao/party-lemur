@@ -1,7 +1,7 @@
-#Party Lemur v1.0
+# Party Lemur v1.0
 A SPA that gives users the ability to login, create party invitations using their own artwork, and save them for future use in email or print.
 
-Overview:
+### Overview:
 The main goal of the application was to build a tool that users can easily utilize to create their own invitations.  My main focus started with planning and the UI/UX thought process to pin down the full level of functionality I would need.  
 
 ```
@@ -36,7 +36,7 @@ To Achieve the above goals I utilized many technologies listed below:
 - GruntJS
 - Firebase
 
-Description of process for the tool:
+### Description of process for the tool:
 In order to achieve the UI/UX I wanted the user to have, I chose to utilize HTML5’s canvas element.  This gave me an extensive amount of control that I could give to the user through ‘buttons’ and ‘tools’.  It renders blob data types and base64 image encoding with scaleable and controllable resolutions.  The biggest hurtles I ran across were with storage and the very obvious functionality of canvas.  Canvas doesn’t layer naturally, it ‘draws’ or renders each pixel which means it immediately flattens the result.  There is no way to remove the pixel data underneath, so manipulating the canvas meant manipulating the whole image as a brand new image.  To overcome this issue I knew I needed to store a memory of movements dictated by the user.  The layering effect is achieved by adding each image or text type in order dictated by the user.  This allowed me to script the logic in such a way that the user could manipulate each layer.  After each manipulation the entire array of objects with their updated placement and manipulation [scale, location, existence] is re-rendered into canvas.  Building this layer system allowed me to give maximum usability to the user.
 
 Resources for knowledge and morale
@@ -49,13 +49,77 @@ SCREENSHOT - website
 The user has a location for creating a layer that allows them to chose if it’s a text or image from their full library of saved images.
 SCREENSHOT - website
 ```
-CODE SNIPPET -> show angular code
+<!-- //////////LAYER OPTIONS\\\\\\\\\\-->
+<div ng-show="showLayerOptions">
+<h4>Create Your Layer:</h4>
+<div class="row">
+	 <div ng-repeat="image in images">
+		<div class=" builderSwatch col-xs-2">
+			**********BUTTON DISPLAYS IMAGE FROM USER'S LIBRARY AND PASSES IT TO THE CANVAS MACHINE********** 
+			<button class="btn imageBuilderBtn" ng-click="setImageLayer(image)">
+				<img class="builderThumbnails" src="data:{{image.filetype}};base64,{{image.base64code}}">
+			</button>
+		</div>
+	    </div>
+</div>
+    <div class="input-group">
+	<input type="text" class="form-control textLayerInput" ng-model="textInput">
+	<span class="input-group-btn">
+		<button class="btn btn-info" ng-click="createTextLayer(textInput)">Create Text Layer</button>
+	</span>
+    </div>
+</div>
 ```
 
 The user can then utilize the manipulation buttons on each layer that will manipulate each object’s data that tells my canvas drawing function how to render or re-render the new graphic.
 SCREENSHOT -> website
 ```
-CODE SNIPPET -> show draw function and a button function
+**********DRAWING FUNCTIONALITY FOR EACH LAYER**********
+let myDrawImage = (obj) => {
+	let longstring = obj.imageCode;
+	  let xAxis = obj.xAxis;
+	  let yAxis = obj.yAxis;
+	  let zScale = obj.scale;
+
+	let img = new Image();
+	img.onload = () => {
+	ctx.drawImage(img, xAxis, yAxis, img.width * zScale, img.height * zScale);
+	if (obj.string !== undefined) {
+		writeMyText(obj);
+	}
+	};
+	img.src = longstring;
+};
+
+**********LOOPING OVER EACH LAYER AND RUNNING THE DRAWING METHOD DEVELOPED********
+$scope.setImageLayer = (imageObj) => {
+	newLayer = {
+		imageCode:`data:${imageObj.filetype};base64,${imageObj.base64code}`,
+		xAxis: xAxis,
+		yAxis: yAxis,
+		scale: zScale,
+		layernumber: layerCounter
+	};
+	$scope.currentLayers.push(newLayer);
+	layerCounter ++;
+	$scope.currentLayers.forEach((layerObj) => {
+		if (layerObj.string !== undefined) {
+			$timeout(() => {writeMyText(layerObj);}, 200);
+		} else {
+		myDrawImage(layerObj);
+		}
+	});
+};
+
+**********SAMPLE MANIPULATION FUNCTION THAT DEMONSTRATES USE OF ABOVE METHOD CHAINING**********
+$scope.shiftLayerRight = (layerNum) => {
+	for (let a = 0; a < $scope.currentLayers.length; a++){
+		if (layerNum === $scope.currentLayers[a].layernumber) {
+			$scope.currentLayers[a].xAxis = $scope.currentLayers[a].xAxis + 20;
+		}
+	}
+	layerReDraw();
+};
 ```
 
 For added organization for the user, I wanted to give them a dashboard that allows them to view their invites, uploaded photos, and their list of parties.
@@ -64,13 +128,20 @@ SCREENSHOT OF DASHBOARD
 The user can view their invitations that are saved to a party as well as view parties and add an invitation that hasn’t been created yet.
 SCREENSHOT
 
-Solving the storage problem:
+### Solving the storage problem:
 Per the requirements of the course, I was required to utilize Firebase as my storage system.  Firebase had poor image storage capabilities at the time and limited my ability to mass upload the layers of data that became highly complex in a timely and efficient manner.  In order to side-step some of this, I reduced the amount of processing from Firebase and optimized the end-user’s browser functionality by converting and encoding all processed images into base64 strings.  This worked because canvas renders as base64 encoded images for final production, as well as reads incoming images as base64 BUT in future renditions of this tool I will be converting this system to a more robust storage facility with faster image rendering as well as updating the code to read and process blob data.
 ```
-CODE SNIPPET
+**********
+I UTILIZED THE LIBRARY naif.base64 to render the base64 object during the user's uploading process.  That object is then parsed to create the browser-ready string for saving in the database and for use in the canvas drawing methods.
+**********
+Angular Library directory use:
+<input type="file" ng-model="file" name="file" base-sixty-four-input onload="onLoad" accept="image/*">
+
+JS parsing:
+imageCode:`data:${imageObj.filetype};base64,${imageObj.base64code}`,
 ```
 
-HOW TO RUN CODE
+### HOW TO RUN CODE
 ```
 Global installs: npm install http-server -g & npm install grunt-cli -g
 
